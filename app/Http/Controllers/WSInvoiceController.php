@@ -19,6 +19,7 @@ class WSInvoiceController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', WSInvoice::class);
         // dd(WSInvoice::with('transactionable')->get());
         return inertia('WSInvoices/Index',[
             'wsinvoices'=> WSInvoice::with('customer')->paginate()
@@ -30,6 +31,7 @@ class WSInvoiceController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', WSInvoice::class);
         // dd(Customer::where('status', 1)->get());
      
         return inertia('WSInvoices/Create',[
@@ -43,6 +45,9 @@ class WSInvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', WSInvoice::class);
+        $this->authorize('wholesaleinvoiceprint', WSInvoice::class);
+
         // dd($request);
         DB::beginTransaction();
 

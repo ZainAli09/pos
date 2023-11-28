@@ -19,6 +19,7 @@ class PurchaseInvoiceController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', PurchaseInvoice::class);
         return inertia('PurchaseInvoices/Index',[
             'purchaseinvoices' => PurchaseInvoice::paginate(),
         ]);
@@ -30,6 +31,8 @@ class PurchaseInvoiceController extends Controller
     public function create()
     {
         // dd("hj");
+        $this->authorize('create', PurchaseInvoice::class);
+
         $products = Product::where('status', 1)->get()->map(function ($product) {
             return ['id' => $product->id, 'text' => $product->name];
         })->toArray();
@@ -42,9 +45,6 @@ class PurchaseInvoiceController extends Controller
             // 'products'=> $products,
             'products'=> Product::where('status', 1)->get(),
             // 'products' => $products
-
-            
-
         ]);
     }
 
@@ -53,7 +53,9 @@ class PurchaseInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->authorize('create', PurchaseInvoice::class);
+        $this->authorize('purchaseprint', PurchaseInvoice::class);
+
             DB::beginTransaction();
 
             try {

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 class LedgerController extends Controller
 {
     public function index(){
+        $this->authorize('ledger');
         return inertia('Ledger/Index',[
             'vendors' => Vendor::where('status', 1)->get(),
             'employees' => Employee::where('status', 1)->get(),

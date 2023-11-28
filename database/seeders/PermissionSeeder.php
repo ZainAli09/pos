@@ -53,57 +53,86 @@ class PermissionSeeder extends Seeder
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'events.view',
+                'name' => 'ledger',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'events.create',
+                'name' => 'purchase.return',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'events.edit',
+                'name' => 'purchase',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'events.delete',
+                'name' => 'sale',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'directories.view',
+                'name' => 'sale.return',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'directories.create',
+                'name' => 'whole.sale',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'directories.edit',
+                'name' => 'whole.sale.return',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'directories.delete',
+                'name' => 'purchase.view',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'catalog.view',
+                'name' => 'sale.view',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'catalog.create',
+                'name' => 'whole.sale.return.view',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'catalog.edit',
+                'name' => 'purchase.return.view',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'catalog.delete',
+                'name' => 'sale.return.view',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'chatbox.index',
+                'name' => 'whole.sale.view',
                 'guard_name' => 'web',
             ],
+            [
+                'name' => 'invoices',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'purchase.print',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'sale.print',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'whole.sale.print',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'purchase.return.print',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'sale.return.print',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'whole.sale.return.print',
+                'guard_name' => 'web',
+            ],
+            
         ];
         $permission = Permission::insert($data);
         // Use a different variable name (e.g., $permissions) for the loop

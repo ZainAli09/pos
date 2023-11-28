@@ -19,6 +19,7 @@ class WSReturnInvoicesController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', WSReturnInvoices::class);
         return inertia('WSReturnInvoices/Index',[
             'wsreturninvoices'=> WSReturnInvoices::with('customer')->paginate()
         ]);
@@ -29,6 +30,7 @@ class WSReturnInvoicesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', WSReturnInvoices::class);
         return inertia('WSReturnInvoices/Create',[
             'products'=> Product::where('status', 1)->get(),
             'customers'=> Customer::where('status', 1)->get()
@@ -40,6 +42,8 @@ class WSReturnInvoicesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', WSReturnInvoices::class);
+        $this->authorize('wholesalereturnprint', WSReturnInvoices::class);
         
         // dd($request);
         DB::beginTransaction();

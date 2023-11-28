@@ -19,6 +19,7 @@ class SaleInvoiceController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', SaleInvoice::class);
         return inertia('SalesInvoices/Index',[
             'saleinvoices'=> SaleInvoice::paginate()
         ]);
@@ -29,6 +30,7 @@ class SaleInvoiceController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', SaleInvoice::class);
         return inertia('SalesInvoices/Create',
         [
             
@@ -42,6 +44,8 @@ class SaleInvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', SaleInvoice::class);
+        $this->authorize('saleinvoiceprint', SaleInvoice::class);
         // dd(Auth::user()->id);
         DB::beginTransaction();
 

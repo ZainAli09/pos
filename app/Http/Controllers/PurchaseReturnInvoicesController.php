@@ -20,6 +20,7 @@ class PurchaseReturnInvoicesController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', PurchaseReturnInvoices::class);
         return inertia('PurchaseReturnInvoices/Index',[
             'purchasereturninvoices' => PurchaseReturnInvoices::paginate(),
         ]);
@@ -30,6 +31,7 @@ class PurchaseReturnInvoicesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', PurchaseReturnInvoices::class);
         return inertia('PurchaseReturnInvoices/Create',
         [
             'vendors' => Vendor::where('status',1)->get(),
@@ -45,6 +47,9 @@ class PurchaseReturnInvoicesController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $this->authorize('create', PurchaseReturnInvoices::class);
+        $this->authorize('purchasereturnprint', PurchaseReturnInvoices::class);
+
             DB::beginTransaction();
 
             try {

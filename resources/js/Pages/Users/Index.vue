@@ -30,6 +30,9 @@
           <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
             <th class="px-4 py-3">Name</th>
             <th class="px-4 py-3">Email</th>
+            <th class="px-4 py-3">Role</th>
+            <th class="px-4 py-3">Permissions</th>
+
             <th class="px-4 py-3">Action</th>
           </tr>
           </thead>
@@ -41,8 +44,25 @@
               <td class="px-4 py-3 text-sm">
                 {{ user.email }}
               </td>
+              <td  class="px-4 py-3 text-sm">
+                <template v-for="role in user.roles">
+                  {{ role.name }} <br>
+                </template>
+                
+              </td>
+              
+              <td  class="px-4 py-3 text-sm">
+                <template v-for="role in user.roles">
+                 
+                  <template v-for="permission in role.permissions">
+                    {{ permission.name }} ,
+                  </template>
+                
+                </template>
+                
+              </td>
               <td class="px-4 py-3 text-sm">
-                <PrimaryButton @click="handleAssignRoleClick(user)" >Assign/Chane Role</PrimaryButton>
+                <PrimaryButton @click="handleAssignRoleClick(user)" >Assign/Change Role</PrimaryButton>
 
               </td>
             </tr>
@@ -120,6 +140,7 @@ export default{
       axios.patch('/update/role', data)
         .then(response => {
           // Handle the response data here
+          this.confirmingUserDeletion = false;
           console.log(response.data);
         })
         .catch(error => {

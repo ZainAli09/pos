@@ -22,9 +22,20 @@
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
                                 <th class="px-4 py-3">Sr</th>
-                                <th class="px-4 py-3">Permission</th>
+                                <th class="px-4 py-3">Role</th>
                             </tr>
                         </thead>
+                        <tbody class="bg-white divide-y">
+                            
+                            <tr v-for="(role, index) in roles" :key="role.id" class="text-gray-700">
+                                <td class="px-4 py-3 text-sm">
+                                    {{ index+1 }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ role.name }}
+                                </td>
+                            </tr>
+                        </tbody>
                         
                     </table>
                 </div>
@@ -54,7 +65,7 @@
         },
 
         props: {
-            
+            roles: Object
         }
     }
 
