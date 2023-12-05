@@ -24,6 +24,7 @@ class CashReceivedVoucherController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', CashReceivedVoucher::class);
         return inertia('Vouchers/CashReceived/Create',[
             'customers'=>Customer::where('status', 1)->get(),
             'receivedVouchers'=>CashReceivedVoucher::with('customer')->get()

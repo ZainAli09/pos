@@ -6,7 +6,7 @@
       </Link>
 
       <ul class="mt-6">
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('dashboard')" class="relative px-6 py-3">
           <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
             <template #icon>
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -19,7 +19,7 @@
           </NavLink>
         </li>
 
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('user.management.module')" class="relative px-6 py-3">
           <button @click="showingUserManagementMenu = !showingUserManagementMenu"
               class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               aria-haspopup="true">
@@ -74,7 +74,7 @@
         </li>
 
         
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('main.addings.module')" class="relative px-6 py-3">
           <button @click="showingMainAddings = !showingMainAddings"
               class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               aria-haspopup="true">
@@ -207,7 +207,7 @@
             About us
           </NavLink>
         </li>
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('ledger')" class="relative px-6 py-3">
           <NavLink :href="route('ledger.index')" :active="route().current('ledger.index')">
             <template #icon>
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -220,7 +220,7 @@
           </NavLink>
         </li>
 
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('invoices.module')" class="relative px-6 py-3">
           <button @click="showingInvoices = !showingInvoices"
               class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               aria-haspopup="true">
@@ -313,7 +313,7 @@
             </ul>
         </li>
 
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('vouchers.module')" class="relative px-6 py-3">
           <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"
               class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               aria-haspopup="true">
@@ -357,7 +357,7 @@
             </ul>
         </li>
 
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('reports.module')" class="relative px-6 py-3">
           <button @click="showingReports = !showingReports"
               class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               aria-haspopup="true">

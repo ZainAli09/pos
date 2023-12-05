@@ -26,6 +26,7 @@ class CashPaymentVoucherController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', CashPaymentVoucher::class);
           
         $expenses = Expense::all();
         $employees = Employee::all();

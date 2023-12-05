@@ -85,7 +85,7 @@
                 <PrimaryButton >Save</PrimaryButton>
             </form><br />
             
-            <div class="overflow-hidden mb-8 w-full rounded-lg border shadow-xs">
+            <div  class="overflow-hidden mb-8 w-full rounded-lg border shadow-xs">
                     <div class="overflow-x-auto w-full">
                         <table class="w-full whitespace-no-wrap">
                             <thead>
@@ -106,7 +106,7 @@
                                     <td class="px-4 py-3 text-sm">{{paymentVoucher.stakeholder.stakeholder.name}}</td>
                                     <td class="px-4 py-3 text-sm">{{paymentVoucher.desc}}</td>
                                     <td class="px-4 py-3 text-sm">{{paymentVoucher.total_amount}}</td>
-                                    <td class="px-4 py-3 text-sm"><DeleteButton :model="'CashPaymentVoucher'" :id="paymentVoucher.id"></DeleteButton></td>
+                                    <td v-if="$page.props.user.permissions.includes('delete.records')" class="px-4 py-3 text-sm"><DeleteButton :model="'CashPaymentVoucher'" :id="paymentVoucher.id"></DeleteButton></td>
                                 </tr>
                             </tbody>
                         </table>

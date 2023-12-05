@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $this->authorize(User::class,'viewAny');
         return Inertia::render('Users/Index', [
-            'users' => User::with( 'roles.permissions')->paginate(),
+            'users' => User::with('roles.permissions')->paginate(),
             'roles' => Role::get()
         ]);
     }

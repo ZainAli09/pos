@@ -92,7 +92,7 @@
                                     <td class="px-4 py-3 text-sm">{{receivedVoucher.customer.name}}</td>
                                     <td class="px-4 py-3 text-sm">{{receivedVoucher.desc}}</td>
                                     <td class="px-4 py-3 text-sm">{{receivedVoucher.total_amount}}</td>
-                                    <td class="px-4 py-3 text-sm"><DeleteButton :model="'CashReceivedVoucher'" :id="receivedVoucher.id"></DeleteButton></td>
+                                    <td v-if="$page.props.user.permissions.includes('delete.records')" class="px-4 py-3 text-sm"><DeleteButton :model="'CashReceivedVoucher'" :id="receivedVoucher.id"></DeleteButton></td>
 
                                 </tr>
                             </tbody>

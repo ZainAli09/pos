@@ -53,7 +53,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    // $user = auth()->user();
+    // $permissions = $user->getPermissionNames()->toArray();
+    
     return Inertia::render('Dashboard');
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

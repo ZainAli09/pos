@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -14,8 +15,32 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::create(['name' => 'superadmin']);
+        $role = Role::first();
         $data = [
+            [
+                'name' => 'dashboard',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'invoices.module',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'vouchers.module',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'reports.module',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'user.management.module',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'main.addings.module',
+                'guard_name' => 'web',
+            ],
             [
                 'name' => 'admindashboard.view',
                 'guard_name' => 'web',
@@ -132,12 +157,49 @@ class PermissionSeeder extends Seeder
                 'name' => 'whole.sale.return.print',
                 'guard_name' => 'web',
             ],
+            [
+                'name' => 'cash.payment.voucher',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'cash.payment.voucher.print',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'cash.payment.voucher.view',
+                'guard_name' => 'web',
+            ],
+
+            [
+                'name' => 'cash.received.voucher',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'cash.received.voucher.print',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'cash.received.voucher.view',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'delete.records',
+                'guard_name' => 'web',
+            ],
+
+           
             
         ];
         $permission = Permission::insert($data);
         // Use a different variable name (e.g., $permissions) for the loop
         foreach ($data as $permissionName) {
             $role->givePermissionTo($permissionName['name']);
+        }
+
+        $user = User::first();
+
+        foreach ($data as $permissionName) {
+            $user->givePermissionTo($permissionName['name']);
         }
     }
 }
