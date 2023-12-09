@@ -26,6 +26,8 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\WSInvoiceController;
 use App\Http\Controllers\WSReturnInvoicesController;
 use App\Http\Controllers\ZoneController;
+use App\Models\Customer;
+use App\Models\Product;
 use App\Models\PurchaseInvoice;
 use App\Models\PurchaseReturnInvoices;
 use Illuminate\Foundation\Application;
@@ -53,9 +55,6 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    // $user = auth()->user();
-    // $permissions = $user->getPermissionNames()->toArray();
-    
     return Inertia::render('Dashboard');
 
 })->middleware(['auth', 'verified'])->name('dashboard');

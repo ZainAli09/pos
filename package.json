@@ -18,12 +18,14 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "chart.js": "^4.4.1",
         "flowbite": "^1.8.1",
         "flowbite-vue": "^0.0.17",
         "html2pdf.js": "^0.10.1",
         "jquery": "^3.7.1",
         "moment": "^2.29.4",
         "select2": "^4.1.0-rc.0",
+        "vue-chartjs": "^5.2.0",
         "vue3-select2-component": "^0.1.7"
     }
 }
