@@ -65,15 +65,14 @@
     />
   </div>
 
-  <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
- 
-    <Bar
-      id="my-chart-id-2"
-      :options="chartOptions"
-      :data="chartData" 
-    />
+  <!-- <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+      <Bar
+        id="my-chart-id-2"
+        :options="chartOptions"
+        :data="chartData" 
+      />
+    </div> -->
   </div>
-</div>
 
   </AuthenticatedLayout>
 </template>
