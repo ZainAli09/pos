@@ -31,6 +31,7 @@ use App\Models\Product;
 use App\Models\PurchaseInvoice;
 use App\Models\PurchaseReturnInvoices;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -44,6 +45,12 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/storage-link', function(){
+    Artisan::call('storage:link');
+});
+
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -118,6 +125,9 @@ Route::middleware('auth')->group(function () {
     Route::get('reports/sale', [ReportController::class, 'sale'])->name('reports.sale');
     Route::get('reports/sale/get', [ReportController::class, 'saleGet'])->name('reports.saleGet');
 
+});
+Route::get('/resource-directories', function(){
+    Artisan::call('delete:resource-folders');
 });
 
 require __DIR__.'/auth.php';
