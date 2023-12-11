@@ -6,7 +6,7 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <script src="{{ mix('js/select2-input.js') }}"></script>
+        <script src="{{ asset('js/select2-input.js') }}"></script>
         <!-- resources/views/your-layout.blade.php -->
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
