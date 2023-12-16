@@ -46,7 +46,7 @@ class WSInvoiceController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', WSInvoice::class);
-        $this->authorize('wholesaleinvoiceprint', WSInvoice::class);
+        $this->authorize('whole.sale.print', WSInvoice::class);
 
         // dd($request);
         DB::beginTransaction();

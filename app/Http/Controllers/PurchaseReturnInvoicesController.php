@@ -48,7 +48,7 @@ class PurchaseReturnInvoicesController extends Controller
     {
         // dd($request);
         $this->authorize('create', PurchaseReturnInvoices::class);
-        $this->authorize('purchasereturnprint', PurchaseReturnInvoices::class);
+        $this->authorize('purchase.return.print', PurchaseReturnInvoices::class);
 
             DB::beginTransaction();
 

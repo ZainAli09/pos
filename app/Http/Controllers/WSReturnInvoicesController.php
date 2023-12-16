@@ -43,7 +43,7 @@ class WSReturnInvoicesController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', WSReturnInvoices::class);
-        $this->authorize('wholesalereturnprint', WSReturnInvoices::class);
+        $this->authorize('whole.sale.return.print', WSReturnInvoices::class);
         
         // dd($request);
         DB::beginTransaction();

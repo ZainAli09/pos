@@ -45,7 +45,7 @@ class SaleInvoiceController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', SaleInvoice::class);
-        $this->authorize('saleinvoiceprint', SaleInvoice::class);
+        $this->authorize('sale.print', SaleInvoice::class);
         // dd(Auth::user()->id);
         DB::beginTransaction();
 

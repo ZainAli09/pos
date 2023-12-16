@@ -54,7 +54,7 @@ class PurchaseInvoiceController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', PurchaseInvoice::class);
-        $this->authorize('purchaseprint', PurchaseInvoice::class);
+        $this->authorize('purchase.print', PurchaseInvoice::class);
 
             DB::beginTransaction();
 

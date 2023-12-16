@@ -45,7 +45,7 @@ class SaleReturnInvoicesController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', SaleReturnInvoices::class);
-        $this->authorize('salereturninvoiceprint', SaleReturnInvoices::class);
+        $this->authorize('sale.return.print', SaleReturnInvoices::class);
         
         DB::beginTransaction();
         try {
