@@ -14,21 +14,21 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('product_name_two');
-            $table->string('desc');
-            $table->string('batch_no');
+            $table->string('product_name_two')->nullable();
+            $table->string('desc')->nullable();
+            $table->string('batch_no')->nullable();
 
             $table->float('purchase_rate');
             $table->float('sale_rate');
-            $table->float('whole_sale_rate');
-            $table->float('discount');
-            $table->float('discount_percent');
-            $table->integer('rack_no');
-            $table->date('expiry_date');
-            $table->integer('expiry_alert_days');
+            $table->float('whole_sale_rate')->nullable();
+            $table->float('discount')->nullable();
+            $table->float('discount_percent')->nullable();
+            $table->integer('rack_no')->nullable();
+            $table->date('expiry_date')->nullable();
+            $table->integer('expiry_alert_days')->nullable();
             $table->integer('total_stock')->nullable()->default(0);
             $table->integer('remaining_stock')->nullable()->default(0);
-            $table->string('barcode');
+            $table->string('barcode')->nullable();
             $table->integer('status')->default(1);
 
             $table->unsignedBigInteger('company_id');

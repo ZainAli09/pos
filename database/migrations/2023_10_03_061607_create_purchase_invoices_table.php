@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('purchase_invoices', function (Blueprint $table) {
             $table->id();
            
-            $table->string('desc');
-            $table->integer('manual_no');
+            $table->string('desc')->nullable();
+            $table->integer('manual_no')->nullable();
             $table->unsignedBigInteger('vendor_id');
             $table->foreign('vendor_id')->references('id')->on('vendors');
             $table->integer('total_quantity');
-            $table->float('gross_amount');
-            $table->float('total_discount');
-            $table->float('net_amount');
-            $table->float('service_charges');
+            $table->float('gross_amount')->nullable();
+            $table->float('total_discount')->nullable();
+            $table->float('net_amount')->nullable();
+            $table->float('service_charges')->nullable();
             $table->date('voucher_date')->default(now());
 
            

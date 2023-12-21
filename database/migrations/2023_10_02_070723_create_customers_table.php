@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('contact_no');
-            $table->string('mobile_no');
+            $table->string('contact_no')->nullable();
+            $table->string('mobile_no')->nullable();
 
             $table->unsignedBigInteger('zone_id');
             $table->foreign('zone_id')->references('id')->on('zones');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities');
 
-            $table->string('address');
+            $table->string('address')->nullable();
             
             $table->integer('status')->default(0);
             $table->timestamps();

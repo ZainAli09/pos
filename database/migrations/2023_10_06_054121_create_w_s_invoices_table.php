@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('w_s_invoices', function (Blueprint $table) {
             $table->id();
-            $table->date('sale_date');
-            $table->string('desc');
-            $table->string('manual_no');
+            $table->date('sale_date')->nullable();
+            $table->string('desc')->nullable();
+            $table->string('manual_no')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
 
-            $table->float('net_amount');
-            $table->float('service_charges');
-            $table->float('total_discount');
-            $table->float('total_amount');
+            $table->float('net_amount')->nullable();
+            $table->float('service_charges')->nullable();
+            $table->float('total_discount')->nullable();
+            $table->float('total_amount')->nullable();
             
 
             $table->timestamps();

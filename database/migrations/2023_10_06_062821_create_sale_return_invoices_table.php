@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('sale_return_invoices', function (Blueprint $table) {
             $table->id();
-            $table->float('net_amount');
-            $table->float('service_charges');
-            $table->float('total_discount');
-            $table->float('total_amount');
-            $table->float('received_amount');
-            $table->float('remaining_balance');
+            $table->float('net_amount')->nullable();
+            $table->float('service_charges')->nullable();
+            $table->float('total_discount')->nullable();
+            $table->float('total_amount')->nullable();
+            $table->float('received_amount')->nullable();
+            $table->float('remaining_balance')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -30,7 +30,7 @@ class SaleReturnInvoicesController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', SaleReturnInvoices::class);
+        // $this->authorize('create', SaleReturnInvoices::class);
         return inertia('SaleReturnInvoices/Create',
         [
             
