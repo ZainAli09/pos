@@ -33,7 +33,10 @@ class WSReturnInvoicesController extends Controller
         $this->authorize('create', WSReturnInvoices::class);
         return inertia('WSReturnInvoices/Create',[
             'products'=> Product::where('status', 1)->get(),
-            'customers'=> Customer::where('status', 1)->get()
+            'customers'=> Customer::where('status', 1)->get(),
+            'sr' => ($wsReturnInvoice = WSReturnInvoices::orderBy('id', 'DESC')->first()) ? $wsReturnInvoice->id : 0
+
+
         ]);
     }
 

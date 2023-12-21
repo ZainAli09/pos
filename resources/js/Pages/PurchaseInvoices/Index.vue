@@ -115,7 +115,9 @@
         },
         methods:{
             generatePDF(id){
-                this.$inertia.post('/generate-pdf/purchase', {invoiceid: id});
+                
+               this.$inertia.post('/generate-pdf/purchase', {invoiceid: id});
+
             },
         },
        

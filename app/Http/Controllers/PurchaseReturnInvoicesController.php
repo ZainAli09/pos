@@ -36,6 +36,10 @@ class PurchaseReturnInvoicesController extends Controller
         [
             'vendors' => Vendor::where('status',1)->get(),
             'products'=> Product::where('status',1)->get(),
+            // 'sr'=> PurchaseReturnInvoices::orderBy('id', 'DESC')->first(),
+            'sr' => ($purchaseReturnInvoice = PurchaseReturnInvoices::orderBy('id', 'DESC')->first()) ? $purchaseReturnInvoice->id : 0
+
+
 
         ]);
     

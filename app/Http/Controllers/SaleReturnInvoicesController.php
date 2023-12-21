@@ -35,6 +35,9 @@ class SaleReturnInvoicesController extends Controller
         [
             
             'products'=> Product::where('status',1)->get(),
+            'sr' => ($saleReturnInvoice = SaleReturnInvoices::orderBy('id', 'DESC')->first()) ? $saleReturnInvoice->id : 0
+
+
 
         ]);
     }

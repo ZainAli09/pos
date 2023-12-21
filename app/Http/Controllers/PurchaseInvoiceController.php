@@ -30,21 +30,20 @@ class PurchaseInvoiceController extends Controller
      */
     public function create()
     {
-        // dd("hj");
         $this->authorize('create', PurchaseInvoice::class);
 
         $products = Product::where('status', 1)->get()->map(function ($product) {
-            return ['id' => $product->id, 'text' => $product->name];
+            return ['id' => $product->id, 'text' => $product->name, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate];
         })->toArray();
        
-            
+            // dd($products);
       
         return inertia('PurchaseInvoices/Create',
         [
             'vendors' => Vendor::where('status',1)->get(),
-            // 'products'=> $products,
-            'products'=> Product::where('status', 1)->get(),
-            // 'products' => $products
+            'sr' => ($purchaseInvoice = PurchaseInvoice::orderBy('id', 'DESC')->first()) ? $purchaseInvoice->id : 0,
+            // 'products'=> Product::where('status', 1)->get(),
+            'products' => $products
         ]);
     }
 
@@ -56,6 +55,7 @@ class PurchaseInvoiceController extends Controller
         $this->authorize('create', PurchaseInvoice::class);
         $this->authorize('purchase.print', PurchaseInvoice::class);
 
+        
             DB::beginTransaction();
 
             try {

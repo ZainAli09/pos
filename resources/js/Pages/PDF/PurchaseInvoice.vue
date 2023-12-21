@@ -197,6 +197,7 @@
 
             }
         },
+        
         created() {
             this.created_at = new Date(this.purchaseInvoice.created_at).toLocaleDateString();
 

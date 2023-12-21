@@ -10,6 +10,8 @@
 
         <div>
             <form @submit.prevent="submitForm" class="mt-2 space-y-2">
+                <b style="font-size: 20px;"> INV-{{ sr + 1 }} </b>
+                <br />
                 <div class="flex space-x-4">
                     <div class="w-1/6">
                         <h1 class="text-rose-500">Remaining <span >{{ formData.remaining_stock }}</span> </h1>
@@ -279,7 +281,9 @@ export default {
   props: {
     mustVerifyEmail: Boolean,
     status: String,
-    products: Object
+    products: Object,
+    sr: Array
+
   },
 
    components: {

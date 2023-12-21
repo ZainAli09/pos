@@ -10,6 +10,9 @@
 
         <div>
             <form @submit.prevent="submitForm" class="mt-2 space-y-2">
+                
+                <b style="font-size: 20px;"> INV-{{ sr + 1 }} </b>
+                <br />
                 <div class="flex space-x-4">
                     <div class="w-1/6">
                     <InputLabel for="manual_no" value="Manual No" />
@@ -293,7 +296,9 @@ export default {
     mustVerifyEmail: Boolean,
     status: String,
     vendors: Object,
-    products: Object
+    products: Object,
+    sr: Array
+
   },
 
    components: {

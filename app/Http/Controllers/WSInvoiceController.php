@@ -36,7 +36,10 @@ class WSInvoiceController extends Controller
      
         return inertia('WSInvoices/Create',[
             'products'=> Product::where('status', 1)->get(),
-            'customers'=> Customer::where('status', 1)->get()
+            'customers'=> Customer::where('status', 1)->get(),
+            'sr' => ($wsInvoice = WSInvoice::orderBy('id', 'DESC')->first()) ? $wsInvoice->id : 0
+
+
         ]);
     }
 

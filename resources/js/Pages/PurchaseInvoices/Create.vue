@@ -9,9 +9,11 @@
         </template>
         
         <div>
-            <form @submit.prevent="submitForm" class="mt-2 space-y-2">
+            <form @submit.prevent="submitForm" class="mt-2 space-y-1">
+                <b style="font-size: 20px;"> INV-{{ sr + 1 }} </b>
+                <br />
                 <div class="flex space-x-4">
-                    <div class="w-1/6">
+                    <div class="w-1/12">
                     <InputLabel for="manual_no" value="Manual No" />
                         <TextInput
                             id="manual_no"
@@ -22,7 +24,7 @@
                             autocomplete="manual_no"
                         />
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-1/12">
                     <InputLabel for="desc" value="Description" />
                         <TextInput
                             id="desc"
@@ -33,7 +35,7 @@
                             autocomplete="desc"
                         />
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-1/12">
                         <InputLabel for="vendor" value="Vendor Code" />
                         <TextInput 
                             @change="getVendorDetails(formData.vendor_code)"
@@ -46,7 +48,7 @@
                             readonly
                         />
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-4/12">
                         <InputLabel for="vendor" value="Vendor Name" />
                         <select @change="getVendorDetails(formData.vendor_id)" v-model="formData.vendor_id" id=""
                             class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600"
@@ -55,7 +57,7 @@
                             <option v-for="(vendor, key) in vendors" :value="vendor.id">{{ vendor.name }}</option>
                         </select>
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-4/12">
                         <InputLabel for="vendor_address" value="Vendor Address" />
                         <TextInput
                             readonly
@@ -67,7 +69,7 @@
                             autocomplete="vendor_address"
                         />
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-1/12">
                         <InputLabel for="product_code" value="Product Code" />
                         <TextInput
                            @change="getProductDetails(formData.product_code)"
@@ -78,27 +80,28 @@
                             class="mt-1 block w-full"
                             autocomplete="product_code" readonly
                         />
+                       
                     </div>
                 </div>
                 <div class="flex space-x-4">
-                    <div class="w-1/6">
+                    <div class="w-4/12">
                         <InputLabel for="product" value="Product Name" />
                         
-                        <!-- <Select2Input :options="products" 
-                        @change="getProductDetails(formData.product_id)" v-model="formData.product_id" 
+                        <Select2Input :options="products" 
+                        @change="getProductDetails($event)" v-model="formData.product_id" 
                         style="width: -webkit-fill-available;"
                         
                         />
-                         -->
-                        <select @change="getProductDetails(formData.product_id)" v-model="formData.product_id" id=""
+                        
+                        <!-- <select @change="getProductDetails(formData.product_id)" v-model="formData.product_id" id=""
                             class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600"
                         >
                             <option value="">Select option</option>
                             <option v-for="(product, key) in products" :value="product.id">{{ product.name }}</option>
-                        </select>
+                        </select> -->
                     </div>
                     
-                    <div class="w-1/6">
+                    <div class="w-1/12">
                     <InputLabel for="quantity" value="Quantity" />
                         <TextInput
                             id="quantity"
@@ -110,7 +113,7 @@
                             autocomplete="quantity"
                         />
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-3/12">
                         <InputLabel for="batch_no" value="Batch No" />
                         <TextInput
                             id="batch_no"
@@ -121,7 +124,7 @@
                             autocomplete="batch_no" readonly
                         />
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-3/12">
                         <InputLabel for="purchase_rate" value="Purchase Rate" />
                         <TextInput
                             id="purchase_rate"
@@ -132,7 +135,7 @@
                             autocomplete="purchase_rate" readonly
                         />
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-1/12">
                         <InputLabel for="discount_percent" value="Discount %" />
                         <TextInput
                             id="discount_percent"
@@ -298,6 +301,7 @@ export default {
     status: String,
     vendors: Object,
     products: Object,
+    sr: Array
     
   },
 
@@ -367,8 +371,9 @@ export default {
        
     },
     getProductDetails(id){
-        // console.log('yesss');
+       
         const productdetails = this.products.find((product) => product.id === parseInt(id));
+        // console.log(productdetails.id);
       if (productdetails) {
         this.formData.product_id = productdetails.id;
         this.formData.product_code = productdetails.id;
@@ -384,6 +389,7 @@ export default {
       }
        
     },
+    
     calculateDiscountAmount(){
         
         const totalRate = this.formData.total_rate;
@@ -471,9 +477,9 @@ export default {
       this.formData.total_discount = this.addedItems.reduce((total, item) => total + parseInt(item.discount), 0);
     },
     getProductById(productId) {
-      
+      console.log(productId)
       const product = this.products.find((p) => p.id === productId);
-      return product ? product.name : '';
+      return product ? product.text : '';
     },
 
   },
