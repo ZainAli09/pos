@@ -100,7 +100,7 @@ class PurchaseInvoiceController extends Controller
                     DB::rollBack(); 
                 }
             } catch (Exception $e) {
-                //dd($e);
+                dd($e);
                 DB::rollBack(); 
             }
         

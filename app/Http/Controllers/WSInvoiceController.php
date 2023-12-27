@@ -33,9 +33,11 @@ class WSInvoiceController extends Controller
     {
         $this->authorize('create', WSInvoice::class);
         // dd(Customer::where('status', 1)->get());
-     
+        $products = Product::where('status', 1)->get()->map(function ($product) {
+            return ['id' => $product->id, 'text' => $product->name, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate];
+        })->toArray();
         return inertia('WSInvoices/Create',[
-            'products'=> Product::where('status', 1)->get(),
+            'products'=> $products,
             'customers'=> Customer::where('status', 1)->get(),
             'sr' => ($wsInvoice = WSInvoice::orderBy('id', 'DESC')->first()) ? $wsInvoice->id : 0
 

@@ -6,7 +6,7 @@ use App\Models\SaleReturnInvoices;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class SaleReturnInvoicePolicy
+class SaleReturnInvoicesPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -14,6 +14,7 @@ class SaleReturnInvoicePolicy
     public function viewAny(User $user): bool
     {
         return $user->can('sale.return.view');
+        
     }
 
     /**
@@ -30,6 +31,7 @@ class SaleReturnInvoicePolicy
     public function create(User $user): bool
     {
         return $user->can('sale.return');
+        
     }
 
     /**

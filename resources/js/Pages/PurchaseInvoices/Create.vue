@@ -93,12 +93,7 @@
                         
                         />
                         
-                        <!-- <select @change="getProductDetails(formData.product_id)" v-model="formData.product_id" id=""
-                            class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600"
-                        >
-                            <option value="">Select option</option>
-                            <option v-for="(product, key) in products" :value="product.id">{{ product.name }}</option>
-                        </select> -->
+                      
                     </div>
                     
                     <div class="w-1/12">
@@ -136,7 +131,7 @@
                         />
                     </div>
                     <div class="w-1/12">
-                        <InputLabel for="discount_percent" value="Discount %" />
+                        <InputLabel for="discount_percent" value="Disc %" />
                         <TextInput
                             id="discount_percent"
                             ref="discount_percent"
@@ -423,14 +418,15 @@ export default {
     
     addItem() {
       // Push the form data to the addedItems array
+      console.log(this.formData.discount);
       this.addedItems.push({
         product_code: this.formData.product_code,
         product_name: this.getProductById(this.formData.product_id), // Replace with actual product retrieval logic
         quantity: this.formData.quantity,
         purchase_rate: this.formData.purchase_rate,
         batch_no: this.formData.batch_no,
-        discount: this.formData.discount,
-        discount_percent: this.formData.discount_percent,
+        discount: (this.formData.discount) ? this.formData.discount : 0,
+        discount_percent: (this.formData.discount_percent) ? this.formData.discount_percent : 0,
         total_rate: this.formData.total_rate,
         desc: this.formData.desc,
         manual_no: this.formData.manual_no,
@@ -477,7 +473,7 @@ export default {
       this.formData.total_discount = this.addedItems.reduce((total, item) => total + parseInt(item.discount), 0);
     },
     getProductById(productId) {
-      console.log(productId)
+    //   console.log(productId)
       const product = this.products.find((p) => p.id === productId);
       return product ? product.text : '';
     },
