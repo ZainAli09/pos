@@ -168,7 +168,7 @@
                             v-model="formData.sale_rate"
                             type="number" step="0.01"
                             class="mt-1 block w-full"
-                            autocomplete="sale_rate" readonly
+                            autocomplete="sale_rate" 
                         />
                     </div>
                     <div class="w-1/6">

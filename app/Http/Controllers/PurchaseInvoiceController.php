@@ -21,7 +21,7 @@ class PurchaseInvoiceController extends Controller
     {
         $this->authorize('viewAny', PurchaseInvoice::class);
         return inertia('PurchaseInvoices/Index',[
-            'purchaseinvoices' => PurchaseInvoice::paginate(),
+            'purchaseinvoices' => PurchaseInvoice::orderBy('id', 'DESC')->paginate(),
         ]);
     }
 

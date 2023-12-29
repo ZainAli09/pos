@@ -127,7 +127,7 @@
                             v-model="formData.purchase_rate"
                             type="number" step="0.01"
                             class="mt-1 block w-full"
-                            autocomplete="purchase_rate" readonly
+                            autocomplete="purchase_rate" 
                         />
                     </div>
                     <div class="w-1/12">

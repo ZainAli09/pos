@@ -22,7 +22,7 @@ class PurchaseReturnInvoicesController extends Controller
     {
         $this->authorize('viewAny', PurchaseReturnInvoices::class);
         return inertia('PurchaseReturnInvoices/Index',[
-            'purchasereturninvoices' => PurchaseReturnInvoices::paginate(),
+            'purchasereturninvoices' => PurchaseReturnInvoices::orderBy('id', 'DESC')->paginate(),
         ]);
     }
 

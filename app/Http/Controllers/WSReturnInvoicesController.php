@@ -21,7 +21,7 @@ class WSReturnInvoicesController extends Controller
     {
         $this->authorize('viewAny', WSReturnInvoices::class);
         return inertia('WSReturnInvoices/Index',[
-            'wsreturninvoices'=> WSReturnInvoices::with('customer')->paginate()
+            'wsreturninvoices'=> WSReturnInvoices::orderBy('id', 'DESC')->with('customer')->paginate()
         ]);
     }
 
@@ -32,7 +32,7 @@ class WSReturnInvoicesController extends Controller
     {
         $this->authorize('create', WSReturnInvoices::class);
         $products = Product::where('status', 1)->get()->map(function ($product) {
-            return ['id' => $product->id, 'text' => $product->name, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate];
+            return ['id' => $product->id, 'text' => $product->name,'expiry_date' => $product->expiry_date, 'sale_rate'=> $product->sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate];
         })->toArray();
         return inertia('WSReturnInvoices/Create',[
             'products'=> $products,

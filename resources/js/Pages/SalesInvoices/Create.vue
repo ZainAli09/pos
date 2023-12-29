@@ -32,12 +32,11 @@
                     </div>
                     <div class="w-1/6">
                         <InputLabel for="product" value="Product Name" />
-                        <select @change="getProductDetails(formData.product_id)" v-model="formData.product_id" id=""
-                            class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600"
-                        >
-                            <option value="">Select option</option>
-                            <option v-for="(product, key) in products" :value="product.id">{{ product.name }}</option>
-                        </select>
+                        <Select2Input :options="products" 
+                        @change="getProductDetails($event)" v-model="formData.product_id" 
+                        style="width: -webkit-fill-available;"
+                        
+                        />
                     </div>
                     <div class="w-1/6">
                     <InputLabel for="quantity" value="Quantity" />
@@ -270,6 +269,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
+import Select2Input from '@/Components/Select2Input.vue';
+
 // import Textarea from '@/Components/Textarea.vue';
 
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -290,7 +291,7 @@ export default {
     AuthenticatedLayout,
     InputLabel,
     TextInput, 
-    // Textarea,
+    Select2Input,
     Head,
     PrimaryButton,
   },
@@ -408,8 +409,8 @@ export default {
         quantity: this.formData.quantity,
         sale_rate: this.formData.sale_rate,
         batch_no: this.formData.batch_no,
-        discount: this.formData.discount,
-        discount_percent: this.formData.discount_percent,
+        discount: (this.formData.discount) ? this.formData.discount : 0,
+        discount_percent: (this.formData.discount_percent) ? this.formData.discount_percent : 0,
         total_rate: this.formData.total_rate,
         desc: this.formData.desc,
         manual_no: this.formData.manual_no,
@@ -458,7 +459,7 @@ export default {
     getProductById(productId) {
       
       const product = this.products.find((p) => p.id === productId);
-      return product ? product.name : '';
+      return product ? product.text : '';
     },
 
   },

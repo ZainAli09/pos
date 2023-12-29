@@ -21,7 +21,7 @@ class SaleInvoiceController extends Controller
     {
         $this->authorize('viewAny', SaleInvoice::class);
         return inertia('SalesInvoices/Index',[
-            'saleinvoices'=> SaleInvoice::paginate()
+            'saleinvoices'=> SaleInvoice::orderBy('id', 'DESC')->paginate()
         ]);
     }
 
@@ -31,10 +31,13 @@ class SaleInvoiceController extends Controller
     public function create()
     {
         $this->authorize('create', SaleInvoice::class);
+        $products = Product::where('status', 1)->get()->map(function ($product) {
+            return ['id' => $product->id, 'text' => $product->name, 'expiry_date' => $product->expiry_date, 'sale_rate'=> $product->sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days];
+        })->toArray();
         return inertia('SalesInvoices/Create',
         [
             
-            'products'=> Product::where('status',1)->get(),
+            'products'=> $products,
             'sr' => ($saleInvoice = SaleInvoice::orderBy('id', 'DESC')->first()) ? $saleInvoice->id : 0
             
             
