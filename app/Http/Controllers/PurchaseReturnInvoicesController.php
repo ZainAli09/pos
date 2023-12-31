@@ -22,7 +22,7 @@ class PurchaseReturnInvoicesController extends Controller
     {
         $this->authorize('viewAny', PurchaseReturnInvoices::class);
         return inertia('PurchaseReturnInvoices/Index',[
-            'purchasereturninvoices' => PurchaseReturnInvoices::orderBy('id', 'DESC')->paginate(),
+            'purchasereturninvoices' => PurchaseReturnInvoices::orderBy('id', 'DESC')->with('vendor')->get(),
         ]);
     }
 
@@ -69,6 +69,8 @@ class PurchaseReturnInvoicesController extends Controller
                     'manual_no' => $request->manual_no,
                     'desc' => $request->desc,
                     'vendor_id' => $request->vendor_id,
+                    'created_at'=> $request->created_at
+
 
                 ]);
                 // dd($purchaseReturnInvoice);

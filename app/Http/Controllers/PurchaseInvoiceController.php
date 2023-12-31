@@ -21,7 +21,7 @@ class PurchaseInvoiceController extends Controller
     {
         $this->authorize('viewAny', PurchaseInvoice::class);
         return inertia('PurchaseInvoices/Index',[
-            'purchaseinvoices' => PurchaseInvoice::orderBy('id', 'DESC')->paginate(),
+            'purchaseinvoices' => PurchaseInvoice::orderBy('id', 'DESC')->with('vendor')->get(),
         ]);
     }
 
@@ -68,6 +68,7 @@ class PurchaseInvoiceController extends Controller
                     'manual_no' => $request->manual_no,
                     'desc' => $request->desc,
                     'vendor_id' => $request->vendor_id,
+                    'created_at'=> $request->created_at
 
 
                 ]);

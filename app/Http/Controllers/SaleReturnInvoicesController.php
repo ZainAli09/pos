@@ -21,7 +21,7 @@ class SaleReturnInvoicesController extends Controller
     {
         $this->authorize('viewAny', SaleReturnInvoices::class);
         return inertia('SaleReturnInvoices/Index',[
-            'salereturninvoices'=> SaleReturnInvoices::orderBy('id', 'DESC')->paginate()
+            'salereturninvoices'=> SaleReturnInvoices::orderBy('id', 'DESC')->get()
         ]);
     }
 

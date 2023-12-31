@@ -27,6 +27,11 @@
             <!-- </div> -->
 
             <div class="overflow-hidden mb-8 w-full rounded-lg border shadow-xs">
+                <div class="p-4">
+                    <label for="search" class="sr-only">Search</label>
+                    <input v-model="search" type="text" id="search" name="search" class="bg-gray-50 border border-black-100  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     placeholder="Search Invoice No / Vendor">
+                </div>
                 <div class="overflow-x-auto w-full">
                     <table class="w-full whitespace-no-wrap">
                         <thead>
@@ -34,19 +39,18 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
                                 <!-- <th class="px-4 py-3">Sr</th> -->
                                 <th class="px-4 py-3">Invoice No</th>
+                                <th class="px-4 py-3">Dated</th>
+                                <th class="px-4 py-3">Vendor</th>
+
                                 <th class="px-4 py-3">Total Quantity</th>
-                                <th class="px-4 py-3">Gross Amount</th>
-                                <th class="px-4 py-3">Total Discount</th>
                                 <th class="px-4 py-3">Net Amount</th>
-                                <th class="px-4 py-3">Service Charges</th>
-                             
-                                
                                 <th class="px-4 py-3">Print</th>
+                                
                                 
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y">
-                            <tr v-for="(purchasereturninvoice, index) in purchasereturninvoices.data" :key="purchasereturninvoice.id"
+                            <tr v-for="(purchasereturninvoice, index) in filteredPurchaseReturnInvoices" :key="purchasereturninvoice.id"
                                 class="text-gray-700">
                                 <!-- <td class="px-4 py-3 text-sm">
                                     {{ index+1 }}
@@ -55,22 +59,20 @@
                                     {{ purchasereturninvoice.id }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
+                                    {{ purchasereturninvoice.created_at }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ purchasereturninvoice.vendor.name }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
                                     {{ purchasereturninvoice.total_quantity }}
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ purchasereturninvoice.gross_amount }}
-                                </td>
                                 
-                                <td class="px-4 py-3 text-sm">
-                                    {{ purchasereturninvoice.total_discount }}
-                                </td>
-
+                                
                                 <td class="px-4 py-3 text-sm">
                                     {{ purchasereturninvoice.net_amount }}
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ purchasereturninvoice.service_charges }}
-                                </td>
+                                
                                 <td class="px-4 py-3 text-sm">
                                     <a :href="generatePDF(purchasereturninvoice.id)" target="_blank">
                                         <button type="button"><svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
@@ -86,7 +88,7 @@
                 </div>
                 <div
                     class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9">
-                    <pagination :links="purchasereturninvoices.links" />
+                    <!-- <pagination :links="purchasereturninvoices.links" /> -->
                 </div>
             </div>
         </div>
@@ -112,6 +114,27 @@
 
         props: {
             purchasereturninvoices: Object,
+        },
+        data(){
+            return {
+                search:'',
+            };
+        },
+        
+        computed: {
+            filteredPurchaseReturnInvoices() {
+                const lowerSearch = this.search.toLowerCase();
+                return this.purchasereturninvoices.filter(purchasereturninvoice => {
+                return (
+                    purchasereturninvoice &&
+                    purchasereturninvoice.id &&
+                    purchasereturninvoice.vendor.name &&
+
+                    purchasereturninvoice.id.toString().toLowerCase().includes(lowerSearch) ||
+                    purchasereturninvoice.vendor.name.toString().toLowerCase().includes(lowerSearch) 
+                );
+                });
+            }
         },
         methods:{
             generatePDF(id){

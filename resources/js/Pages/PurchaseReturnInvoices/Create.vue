@@ -14,6 +14,19 @@
                 <b style="font-size: 20px;"> INV-{{ sr + 1 }} </b>
                 <br />
                 <div class="flex space-x-4">
+                    <div class="flex space-x-4">
+                    <div class="w-1/6">
+                        <InputLabel for="purchase_date" value="Purchase date" />
+                        <TextInput
+                            id="purchase_date"
+                            ref="purchase_date"
+                            v-model="formData.created_at"
+                            type="date"
+                            class="mt-1 block w-full"
+                            autocomplete="created_at"
+                        />
+                    </div>
+                </div>
                     <div class="w-1/6">
                     <InputLabel for="manual_no" value="Manual No" />
                         <TextInput
@@ -326,6 +339,7 @@ export default {
             desc:'',
             vendor_id:'',
             product_id:'',
+            created_at:'',
             // quantity:'',
             batch_no:'',
             // purchase_rate:'',

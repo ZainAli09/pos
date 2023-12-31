@@ -27,6 +27,11 @@
             <!-- </div> -->
 
             <div class="overflow-hidden mb-8 w-full rounded-lg border shadow-xs">
+                <div class="p-4">
+                    <label for="search" class="sr-only">Search</label>
+                    <input v-model="search" type="text" id="search" name="search" class="bg-gray-50 border border-black-100  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     placeholder="Search Invoice No.">
+                </div>
                 <div class="overflow-x-auto w-full">
                     <table class="w-full whitespace-no-wrap">
                         <thead>
@@ -34,20 +39,14 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
                                 <!-- <th class="px-4 py-3">Sr</th> -->
                                 <th class="px-4 py-3">Invoice No</th>
-                                <th class="px-4 py-3">Total Discount</th>
                                 <th class="px-4 py-3">Net Amount</th>
-                                <th class="px-4 py-3">Service Charges</th>
                                 <th class="px-4 py-3">Received Amount</th>
-                                <th class="px-4 py-3">Balance Amount</th>
-
-                             
-                                
                                 <th class="px-4 py-3">Print</th>
                                 
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y">
-                            <tr v-for="(salereturninvoice, index) in salereturninvoices.data" :key="salereturninvoice.id"
+                            <tr v-for="(salereturninvoice, index) in filteredSaleReturnInvoices" :key="salereturninvoice.id"
                                 class="text-gray-700">
                                 <!-- <td class="px-4 py-3 text-sm">
                                     {{ index+1 }}
@@ -56,20 +55,10 @@
                                     {{ salereturninvoice.id }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ salereturninvoice.total_discount }}
-                                </td>
-
-                                <td class="px-4 py-3 text-sm">
                                     {{ salereturninvoice.net_amount }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ salereturninvoice.service_charges }}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
                                     {{ salereturninvoice.received_amount }}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ salereturninvoice.remaining_balance }}
                                 </td>
                               
                                 <td class="px-4 py-3 text-sm">
@@ -87,7 +76,7 @@
                 </div>
                 <div
                     class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9">
-                    <pagination :links="salereturninvoices.links" />
+                    <!-- <pagination :links="salereturninvoices.links" /> -->
                 </div>
             </div>
         </div>
@@ -113,6 +102,25 @@
 
         props: {
             salereturninvoices: Object,
+        },
+        data(){
+            return {
+                search:'',
+            };
+        },
+        
+        computed: {
+            filteredSaleReturnInvoices() {
+                const lowerSearch = this.search.toLowerCase();
+                return this.salereturninvoices.filter(salereturninvoice => {
+                return (
+                    salereturninvoice &&
+                    salereturninvoice.id &&
+
+                    salereturninvoice.id.toString().toLowerCase().includes(lowerSearch) 
+                );
+                });
+            }
         },
         methods:{
             generatePDF(id){

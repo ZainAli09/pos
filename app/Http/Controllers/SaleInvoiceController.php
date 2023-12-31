@@ -21,7 +21,7 @@ class SaleInvoiceController extends Controller
     {
         $this->authorize('viewAny', SaleInvoice::class);
         return inertia('SalesInvoices/Index',[
-            'saleinvoices'=> SaleInvoice::orderBy('id', 'DESC')->paginate()
+            'saleinvoices'=> SaleInvoice::orderBy('id', 'DESC')->get()
         ]);
     }
 

@@ -21,7 +21,7 @@ class WSReturnInvoicesController extends Controller
     {
         $this->authorize('viewAny', WSReturnInvoices::class);
         return inertia('WSReturnInvoices/Index',[
-            'wsreturninvoices'=> WSReturnInvoices::orderBy('id', 'DESC')->with('customer')->paginate()
+            'wsreturninvoices'=> WSReturnInvoices::orderBy('id', 'DESC')->with('customer')->get()
         ]);
     }
 

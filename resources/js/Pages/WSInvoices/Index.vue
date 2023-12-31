@@ -27,6 +27,11 @@
             <!-- </div> -->
 
             <div class="overflow-hidden mb-8 w-full rounded-lg border shadow-xs">
+                <div class="p-4">
+                    <label for="search" class="sr-only">Search</label>
+                    <input v-model="search" type="text" id="search" name="search" class="bg-gray-50 border border-black-100  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     placeholder="Search Invoice No / Customer">
+                </div>
                 <div class="overflow-x-auto w-full">
                     <table class="w-full whitespace-no-wrap">
                         <thead>
@@ -34,16 +39,20 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
                                 <!-- <th class="px-4 py-3">Sr</th> -->
                                 <th class="px-4 py-3">Invoice No</th>
+                                <th class="px-4 py-3">Dated</th>
+
                                 <th class="px-4 py-3">Customer Name</th>
 
                                 <th class="px-4 py-3">Total Amount</th>
-                                <th class="px-4 py-3">Action</th>
+                                <th class="px-4 py-3">Net Amount</th>
+
+                                <th class="px-4 py-3">Print</th>
                                 
                             </tr>
                         </thead>
                         
                         <tbody class="bg-white divide-y">
-                            <tr v-for="(wsinvoice, index) in wsinvoices.data" :key="wsinvoice.id"
+                            <tr v-for="(wsinvoice, index) in filteredWSInvoices" :key="wsinvoice.id"
                                 class="text-gray-700">
                                 <!-- <td class="px-4 py-3 text-sm">
                                     {{ index+1 }}
@@ -52,11 +61,17 @@
                                     {{ wsinvoice.id }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
+                                    {{ wsinvoice.sale_date }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
                                     {{ wsinvoice.customer.name }}
                                 </td>
                                 
                                 <td class="px-4 py-3 text-sm">
                                     {{ wsinvoice.total_amount }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ wsinvoice.net_amount }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     <a :href="generatePDF(wsinvoice.id)" target="_blank">
@@ -71,7 +86,7 @@
                 </div>
                 <div
                     class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9">
-                    <pagination :links="wsinvoices.links" />
+                    <!-- <pagination :links="wsinvoices.links" /> -->
                 </div>
             </div>
         </div>
@@ -97,6 +112,27 @@
 
         props: {
             wsinvoices: Object,
+        },
+        data(){
+            return {
+                search:'',
+            };
+        },
+        
+        computed: {
+            filteredWSInvoices() {
+                const lowerSearch = this.search.toLowerCase();
+                return this.wsinvoices.filter(wsinvoice => {
+                return (
+                    wsinvoice &&
+                    wsinvoice.id &&
+                    wsinvoice.customer.name &&
+
+                    wsinvoice.id.toString().toLowerCase().includes(lowerSearch) ||
+                    wsinvoice.customer.name.toString().toLowerCase().includes(lowerSearch) 
+                );
+                });
+            }
         },
         methods:{
             generatePDF(id){

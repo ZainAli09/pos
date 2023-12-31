@@ -22,7 +22,7 @@ class WSInvoiceController extends Controller
         $this->authorize('viewAny', WSInvoice::class);
         // dd(WSInvoice::with('transactionable')->get());
         return inertia('WSInvoices/Index',[
-            'wsinvoices'=> WSInvoice::orderBy('id', 'DESC')->with('customer')->paginate()
+            'wsinvoices'=> WSInvoice::orderBy('id', 'DESC')->with('customer')->get()
         ]);
     }
 
