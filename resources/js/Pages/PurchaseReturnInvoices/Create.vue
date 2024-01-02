@@ -66,7 +66,7 @@
                         <InputLabel for="vendor" value="Vendor Name" />
                         <select @change="getVendorDetails(formData.vendor_id)" v-model="formData.vendor_id" id=""
                             class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600"
-                        >
+                            style="width: 100%;">
                             <option value="">Select option</option>
                             <option v-for="(vendor, key) in vendors" :value="vendor.id">{{ vendor.name }}</option>
                         </select>

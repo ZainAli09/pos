@@ -15,7 +15,7 @@ class VendorController extends Controller
     public function index()
     {
         // dd(Vendor::with('city')->get());
-        return inertia('Vendors/Index', ['vendors'=> Vendor::with('city')->paginate()]);
+        return inertia('Vendors/Index', ['vendors'=> Vendor::orderBy('id', 'DESC')->with('city')->paginate()]);
     }
 
     /**

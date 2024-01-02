@@ -15,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return inertia('Customers/Index', ['customers'=> Customer::with('city', 'zone')->paginate()]);
+        return inertia('Customers/Index', ['customers'=> Customer::orderBy('id', 'DESC')->with('city', 'zone')->paginate()]);
         
     }
 

@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return inertia('Products/Index', ['products' => Product::with('company', 'category', 'subcategory')->paginate()]);
+        return inertia('Products/Index', ['products' => Product::orderBy('id', 'DESC')->with('company', 'category', 'subcategory')->paginate()]);
     }
 
     /**
