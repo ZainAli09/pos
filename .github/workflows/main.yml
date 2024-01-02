@@ -31,5 +31,4 @@ jobs:
         script: |
           cd /home/relymasolutions/pos
           git pull origin main
-          # /opt/cpanel/ea-php81/root/usr/bin/php /home/relymasolutions/pos/artisan migrate:fresh --seed
-          # Any additional deployment steps
+   
