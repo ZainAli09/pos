@@ -29,6 +29,6 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /home/relymasolutions/pos
+          cd /home/cssnet/pos
           git pull origin main
    
