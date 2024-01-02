@@ -85,7 +85,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('employees', EmployeeController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('expenses', ExpenseController::class);
-
     
     Route::resource('vendors', VendorController::class);
     Route::resource('subcategories', SubCategoryController::class);
