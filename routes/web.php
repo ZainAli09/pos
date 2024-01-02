@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('expenses', ExpenseController::class);
 
+
     
     Route::resource('vendors', VendorController::class);
     Route::resource('subcategories', SubCategoryController::class);
