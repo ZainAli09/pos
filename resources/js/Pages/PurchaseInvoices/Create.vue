@@ -70,6 +70,9 @@
                             <option value="">Select option</option>
                             <option v-for="(vendor, key) in vendors" :value="vendor.id">{{ vendor.name }}</option>
                         </select>
+                        <Select2Input :options="vendors" 
+                        @change="getVendorDetails(formData.vendor_id)" v-model="formData.vendor_id" 
+                        style="width: 100%"  />
                     </div>
                     <div class="w-4/12">
                         <InputLabel for="vendor_address" value="Vendor Address" />

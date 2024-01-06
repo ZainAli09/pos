@@ -39,6 +39,7 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
                                 <!-- <th class="px-4 py-3">Sr</th> -->
                                 <th class="px-4 py-3">Invoice No</th>
+                                <th class="px-4 py-3">Dated</th>
                                 <th class="px-4 py-3">Net Amount</th>
                                 <th class="px-4 py-3">Received Amount</th>
                                 <th class="px-4 py-3">Print</th>
@@ -55,7 +56,9 @@
                                 <td class="px-4 py-3 text-sm">
                                     {{ saleinvoice.id }}
                                 </td>
-                               
+                                <td class="px-4 py-3 text-sm">
+                                    {{ changeDateFormat(saleinvoice.created_at) }}
+                                </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ saleinvoice.net_amount }}
                                 </td>
@@ -124,6 +127,11 @@
             }
         },
         methods:{
+            changeDateFormat(date){
+                const newdate = new Date(date).toISOString().split('T')[0];
+                return newdate;
+
+            },
             generatePDF(id){
                 // this.$inertia.post('/generate-pdf', {invoiceid: id});
                 return `/generate-pdf?invoiceid=${id}`;

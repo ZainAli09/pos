@@ -14,9 +14,9 @@
                 <b style="font-size: 20px;"> INV-{{ sr + 1 }} </b>
                 <br />
                 <div class="flex space-x-4">
-                    <div class="flex space-x-4">
+                    
                     <div class="w-1/6">
-                        <InputLabel for="purchase_date" value="Purchase date" />
+                        <InputLabel for="purchase_date" value="Purchase Return Date" />
                         <TextInput
                             id="purchase_date"
                             ref="purchase_date"
@@ -26,7 +26,7 @@
                             autocomplete="created_at"
                         />
                     </div>
-                </div>
+               
                     <div class="w-1/6">
                     <InputLabel for="manual_no" value="Manual No" />
                         <TextInput

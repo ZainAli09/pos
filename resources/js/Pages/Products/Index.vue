@@ -32,8 +32,8 @@
                         <thead>
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
-                                <th class="px-4 py-3">Product ID</th>
-                                <th class="px-4 py-3">Company</th>
+                                <th class="px-4 py-3">Pro ID</th>
+                                <!-- <th class="px-4 py-3">Company</th> -->
                                 <!-- <th class="px-4 py-3">Category</th>
                                 <th class="px-4 py-3">Sub Category</th> -->
 
@@ -61,9 +61,9 @@
                                 <td class="px-4 py-3 text-sm">
                                     {{ product.id }}
                                 </td>
-                                <td class="px-4 py-3 text-sm">
+                                <!-- <td class="px-4 py-3 text-sm">
                                     {{ product.company.name }}
-                                </td>
+                                </td> -->
                                 <!-- <td class="px-4 py-3 text-sm">
                                     {{ product.category.name }}
                                 </td>

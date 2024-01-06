@@ -34,7 +34,7 @@
                     <div class="w-1/3">
                         <InputLabel for="stakeholder_id" value="Account Name" />
                         <select v-model="formData.stakeholder_id" 
-                        @change="updateStakeholderType"
+                        @change="updateStakeholderType" style="width: 100%;"
                         class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600">
                             <!-- <option v-for="stakeholder in stakeholders"  >{{ vendor.name }}</option> -->
                             <option >-- Select an Account --</option>

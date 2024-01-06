@@ -32,9 +32,9 @@ class CashPaymentVoucherController extends Controller
         $employees = Employee::all();
         $vendors = Vendor::all();
         $stakeholders = [
-                ['type' => 'Expense', 'data' => $expenses],
-                ['type' => 'Employee', 'data' => $employees],
                 ['type' => 'Vendor', 'data' => $vendors],
+                ['type' => 'Employee', 'data' => $employees],
+                ['type' => 'Expense', 'data' => $expenses],
             ];
              
                 // dd(CashPaymentVoucher::with('stakeholder.stakeholder')->get());

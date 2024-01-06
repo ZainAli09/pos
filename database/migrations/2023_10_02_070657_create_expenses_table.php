@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('expenses', function (Blueprint $table) {
-            $table->id()->startingValue(300000);
+            $table->id()->startingValue(5000);
             $table->string('name');
             
             $table->string('reference_no');
