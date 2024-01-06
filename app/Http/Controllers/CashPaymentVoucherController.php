@@ -28,16 +28,27 @@ class CashPaymentVoucherController extends Controller
     {
         $this->authorize('create', CashPaymentVoucher::class);
           
-        $expenses = Expense::all();
-        $employees = Employee::all();
-        $vendors = Vendor::all();
-        $stakeholders = [
-                ['type' => 'Vendor', 'data' => $vendors],
-                ['type' => 'Employee', 'data' => $employees],
-                ['type' => 'Expense', 'data' => $expenses],
-            ];
-             
-                // dd(CashPaymentVoucher::with('stakeholder.stakeholder')->get());
+        // $expenses = Expense::all();
+        // $employees = Employee::all();
+        // $vendors = Vendor::all();
+        $expenses = Expense::all()->map(function ($expense) {
+            return ['id' => $expense->id, 'text' => $expense->name, 'type'=> 'Expense'];
+        })->toArray();
+        
+        $employees = Employee::all()->map(function ($employee) {
+            return ['id' => $employee->id, 'text' => $employee->name, 'type'=> 'Employee'];
+        })->toArray();
+        
+        $vendors = Vendor::all()->map(function ($vendor) {
+            return ['id' => $vendor->id, 'text' => $vendor->name, 'type'=> 'Vendor'];
+        })->toArray();
+        // $stakeholders = [
+        //         ['type' => 'Vendor', 'data' => $vendors],
+        //         ['type' => 'Employee', 'data' => $employees],
+        //         ['type' => 'Expense', 'data' => $expenses],
+        //     ];
+        $stakeholders = array_merge($employees, $expenses, $vendors);
+                // dd($stakeholders);
         return inertia('Vouchers/CashPayment/Create',[
             'stakeholders' =>$stakeholders,
             'paymentVouchers'=>CashPaymentVoucher::with('stakeholder.stakeholder')->get()
@@ -50,6 +61,7 @@ class CashPaymentVoucherController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
 
        if ($request->stakeholder_type === 'Expense') {
             $expense = Expense::find($request->stakeholder_id);

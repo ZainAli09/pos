@@ -34,9 +34,12 @@ class WSReturnInvoicesController extends Controller
         $products = Product::where('status', 1)->get()->map(function ($product) {
             return ['id' => $product->id, 'text' => $product->name,'expiry_date' => $product->expiry_date, 'sale_rate'=> $product->sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate];
         })->toArray();
+        $customers = Customer::where('status', 1)->get()->map(function ($customer) {
+            return ['id' => $customer->id, 'text' => $customer->name,'address' => $customer->address];
+        })->toArray();
         return inertia('WSReturnInvoices/Create',[
             'products'=> $products,
-            'customers'=> Customer::where('status', 1)->get(),
+            'customers'=> $customers,
             'sr' => ($wsReturnInvoice = WSReturnInvoices::orderBy('id', 'DESC')->first()) ? $wsReturnInvoice->id : 0
 
 

@@ -40,13 +40,12 @@ class PurchaseInvoiceController extends Controller
             return ['id' => $vendor->id, 'text' => $vendor->name, 'address' => $vendor->address];
         })->toArray();
        
-            // dd($products);
+            // dd($vendors);
       
         return inertia('PurchaseInvoices/Create',
         [
             'vendors' => $vendors,
             'sr' => ($purchaseInvoice = PurchaseInvoice::orderBy('id', 'DESC')->first()) ? $purchaseInvoice->id : 0,
-            // 'products'=> Product::where('status', 1)->get(),
             'products' => $products
         ]);
     }

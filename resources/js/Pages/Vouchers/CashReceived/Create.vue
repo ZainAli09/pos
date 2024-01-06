@@ -37,11 +37,10 @@
                     
                     <div class="w-1/3">
                         <InputLabel for="customer_id" value="Customer Name" />
-                        <select v-model="formData.customer_id"  @change="getCustomerDetails(formData.customer_id)"
-                        class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600">
-                            <option value="">--Select Customer--</option>
-                            <option v-for="customer in customers" :value="customer.id" >{{ customer.name }}</option>
-                        </select>
+                        <Select2Input :options="customers" 
+                        @change="getCustomerDetails($event)" v-model="formData.customer_id" 
+                        style="width: -webkit-fill-available;" />
+                        
                     </div>
                     <div class="w-1/3">
                         <InputLabel for="desc" value="Description" />
@@ -108,6 +107,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import DeleteButton from '@/Components/DeleteButton.vue';
+import Select2Input from '@/Components/Select2Input.vue';
+
 
 // import Textarea from '@/Components/Textarea.vue';
 
@@ -129,7 +130,7 @@ export default {
     AuthenticatedLayout,
     InputLabel,
     TextInput, 
-    // Textarea,
+    Select2Input,
     Head,
     PrimaryButton,
     DeleteButton

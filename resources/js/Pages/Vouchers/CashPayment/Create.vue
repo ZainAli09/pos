@@ -33,10 +33,14 @@
                     </div>
                     <div class="w-1/3">
                         <InputLabel for="stakeholder_id" value="Account Name" />
-                        <select v-model="formData.stakeholder_id" 
+                        <Select2Input :options="stakeholders"
+                        @change="updateStakeholderType($event)" v-model="formData.stakeholder_id" 
+                        style="width: -webkit-fill-available;" />
+
+                        <!-- <select v-model="formData.stakeholder_id" 
                         @change="updateStakeholderType" style="width: 100%;"
                         class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600">
-                            <!-- <option v-for="stakeholder in stakeholders"  >{{ vendor.name }}</option> -->
+                          
                             <option >-- Select an Account --</option>
                             <option
                                 v-for="stakeholder in flattenedStakeholders"
@@ -46,7 +50,7 @@
                             
                                 {{ stakeholder.name +' / '+ stakeholder.type}}
                             </option>
-                        </select>
+                        </select> -->
                     </div>
                     <div class="w-1/3">
                         <InputLabel for="desc" value="Description" />
@@ -111,6 +115,8 @@ import DeleteButton from '@/Components/DeleteButton.vue';
 // import Textarea from '@/Components/Textarea.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, router } from '@inertiajs/vue3';
+import Select2Input from '@/Components/Select2Input.vue';
+
 
 export default {
   props: {
@@ -125,7 +131,7 @@ export default {
     AuthenticatedLayout,
     InputLabel,
     TextInput, 
-    // Textarea,
+    Select2Input,
     Head,
     PrimaryButton,
     DeleteButton
@@ -143,25 +149,48 @@ export default {
         },
     }
   },
-  computed: {
-    flattenedStakeholders() {
-      return this.stakeholders.reduce((flattened, stakeholderGroup) => {
-        return flattened.concat(stakeholderGroup.data.map(stakeholder => ({
-          id: stakeholder.id,
-          type: stakeholderGroup.type,
-          name: stakeholder.name,
-        })));
-      }, []);
-    },
-  },
-
+//   computed: {
+//     flattenedStakeholders() {
+//       return this.stakeholders.reduce((flattened, stakeholderGroup) => {
+//         return flattened.concat(stakeholderGroup.data.map(stakeholder => ({
+//           id: stakeholder.id,
+//           type: stakeholderGroup.type,
+//           name: stakeholder.name,
+//         })));
+//       }, []);
+//     },
+//   },
+   
   methods: {
-    updateStakeholderType(event){
-        const selectedIndex = event.target.selectedIndex;
-        this.formData.stakeholder_type = event.target.options[selectedIndex].getAttribute('data-type');
-        this.formData.account_no = event.target.options[selectedIndex].getAttribute('value');
-    
+    updateStakeholderType(event) {
+     
+        const selectedStakeholder = this.stakeholders.flat().find(stakeholder => stakeholder.id == event);
+
+
+        if (selectedStakeholder) {
+            this.formData.stakeholder_type = selectedStakeholder.type;
+            this.formData.stakeholder_id = selectedStakeholder.id;
+            this.formData.account_no = selectedStakeholder.id;
+           
+        }
     },
+    // updateStakeholderType(event){
+    //     // this.formData.account_no = event;
+    //     const selectedStakeholder = this.stakeholders.find(stakeholder => stakeholder.id === event);
+    //     console.log(selectedStakeholder);
+
+    //         if (selectedStakeholder) {
+    //             const type = selectedStakeholder.type;
+    //             // console.log( type);
+
+    //             // Your logic here
+    //         }
+    //     // const selectedIndex = event.target.selectedIndex;
+    //     // console.warn(selectedIndex);
+    //     // this.formData.stakeholder_type = event.target.options[selectedIndex].getAttribute('data-type');
+    //     // this.formData.account_no = event.target.options[selectedIndex].getAttribute('value');
+    
+    // },
     submitForm() {
       this.$inertia.post(route('cashpaymentvouchers.store'), this.formData, {
         onSuccess: () => {

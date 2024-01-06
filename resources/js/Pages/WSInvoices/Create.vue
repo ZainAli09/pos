@@ -60,12 +60,12 @@
                     </div>
                     <div class="w-1/6">
                         <InputLabel for="customer" value="Customer Name" />
-                        <select @change="getCustomerDetails(formData.customer_id)" v-model="formData.customer_id" id=""
-                            class="mt-1 border-gray-300 rounded-md shadow-sm  focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600"
-                        >
-                            <option value="">Select option</option>
-                            <option v-for="(customer, key) in customers" :value="customer.id">{{ customer.name }}</option>
-                        </select>
+                        
+                        <Select2Input :options="customers" 
+                        
+                        @change="getCustomerDetails($event)" v-model="formData.customer_id" 
+                        style="width: -webkit-fill-available;" />
+
                     </div>
                     <div class="w-1/6">
                         <InputLabel for="customer_address" value="Customer Address" />

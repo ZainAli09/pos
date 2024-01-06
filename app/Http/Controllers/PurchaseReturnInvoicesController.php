@@ -35,9 +35,12 @@ class PurchaseReturnInvoicesController extends Controller
         $products = Product::where('status', 1)->get()->map(function ($product) {
             return ['id' => $product->id, 'text' => $product->name, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate];
         })->toArray();
+        $vendors = Vendor::where('status', 1)->get()->map(function ($vendor) {
+            return ['id' => $vendor->id, 'text' => $vendor->name, 'address' => $vendor->address];
+        })->toArray();
         return inertia('PurchaseReturnInvoices/Create',
         [
-            'vendors' => Vendor::where('status',1)->get(),
+            'vendors' => $vendors,
             'products'=> $products,
             // 'sr'=> PurchaseReturnInvoices::orderBy('id', 'DESC')->first(),
             'sr' => ($purchaseReturnInvoice = PurchaseReturnInvoices::orderBy('id', 'DESC')->first()) ? $purchaseReturnInvoice->id : 0
