@@ -59,7 +59,7 @@
                                     {{ purchasereturninvoice.id }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ purchasereturninvoice.created_at }}
+                                    {{ changeDateFormat(purchasereturninvoice.created_at) }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ purchasereturninvoice.vendor.name }}
@@ -137,6 +137,11 @@
             }
         },
         methods:{
+            changeDateFormat(date){
+                const newdate = new Date(date).toISOString().split('T')[0];
+                return newdate;
+
+            },
             generatePDF(id){
                 // this.$inertia.post('/generate-pdf/return/purchase', {invoiceid: id});
                 return `/generate-pdf/return/purchase?invoiceid=${id}`;

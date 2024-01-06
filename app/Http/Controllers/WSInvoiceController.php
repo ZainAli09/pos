@@ -78,7 +78,7 @@ class WSInvoiceController extends Controller
                         'product_id' => $item['product_id'],
                         
                         'quantity' => $item['quantity'],
-                        'purchase_date' => $item['purchase_date'],
+                        'purchase_rate' => $item['purchase_rate'],
                       
                         'discount' => $item['discount'],
                         'discount_percent' => $item['discount_percent'],

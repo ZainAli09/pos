@@ -54,7 +54,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return Inertia::render('Products/Edit', [
+            'product'=> $product,
+            'companies'=> Company::all(),
+            'categories'=> Category::all(),
+            'subcategories'=> SubCategory::all()
+        ]);
     }
 
     /**
@@ -62,7 +67,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // dd($product,$request->all());
+        $product->update($request->all());
+        return Inertia::location(route('products.index'));
+
     }
 
     /**

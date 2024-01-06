@@ -42,6 +42,10 @@ class PermissionSeeder extends Seeder
                 'guard_name' => 'web',
             ],
             [
+                'name' => 'product.edit',
+                'guard_name' => 'web',
+            ],
+            [
                 'name' => 'admindashboard.view',
                 'guard_name' => 'web',
             ],

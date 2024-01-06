@@ -138,7 +138,7 @@
                             autocomplete="batch_no" readonly
                         />
                     </div>
-                    <div class="w-1/6">
+                    <!-- <div class="w-1/6">
                         <InputLabel for="purchase_date" value="Purchase date" />
                         <TextInput
                             id="purchase_date"
@@ -148,7 +148,7 @@
                             class="mt-1 block w-full"
                             autocomplete="purchase_date"
                         />
-                    </div>
+                    </div> -->
                     <div class="w-1/6">
                         <InputLabel for="purchase_rate" value="Purchase Rate" />
                         <TextInput
@@ -417,7 +417,10 @@ export default {
     }
   },
 
-
+  mounted() {
+    // Set the current date for the sale_date field when the component is mounted
+    this.formData.sale_date = new Date().toISOString().split('T')[0];
+  },
   methods: {
     submitForm() {
         this.formData.addedItems = this.addedItems;
