@@ -30,7 +30,7 @@ class CashReceivedVoucherController extends Controller
         })->toArray();
         return inertia('Vouchers/CashReceived/Create',[
             'customers'=>$customers,
-            'receivedVouchers'=>CashReceivedVoucher::with('customer')->get()
+            'receivedVouchers'=>CashReceivedVoucher::with('customer')->orderBy('created_at', 'DESC')->get()
         ]);
     }
 

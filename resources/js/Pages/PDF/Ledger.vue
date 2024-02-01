@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Purchase Invoices" />
+    <Head title="Ledger" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,7 +53,8 @@
                     <p>{{ formatDate(end_date) }}</p>
                 </div>
             </div>
-        
+
+      
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr
@@ -145,10 +146,10 @@
                     </td>
                 </tr>
             </tbody>
-
             <tbody class="bg-white divide-y" v-if="ledger_for=='Vendor'">
                 <tr v-for="(ledger, index) in ledgers" 
                     class="text-gray-700">
+               
                     <td class="px-2 py-1 text-sm">
                         <span v-if="ledger.transactionable.voucher_date">{{ formatDate(ledger.transactionable.voucher_date) }}</span>                    
                     </td>
@@ -195,7 +196,7 @@
       
         <div class="flex space-x-4 absolute bottom-0 w-full" id="ledger-footer">
             <div class="w-1/2 ">
-                <p>Developed By Reylma Solutions +92-333-6005212</p>
+                <p>Developed By Relyma Solutions +92-333-6005212</p>
             </div>
             <div class="w-1/4">
                 <p>Date: </p>
@@ -243,7 +244,7 @@
                 balance:'0'
             }
         },
-       
+    
         methods: {
             formatDate(date) {
                 if (date) {
@@ -278,43 +279,86 @@
                         return this.balance =balance + ' CR';
                     }
         },
+        // calculateVendorBalance(ledgers, currentIndex) {
+        //     let balance = 0;
+        //     let totalDebit = 0;
+        //     let totalCredit = 0;
+
+        //     // console.warn(currentIndex);
+        //     for (let i = 0; i <= currentIndex; i++) {
+        //         const ledger = ledgers[i];
+        //         const transactionableType = ledger.transactionable_type.split('\\').pop();
+        //         let debit = 0;
+        //         let credit = 0;
+
+        //         if (transactionableType === 'CashPaymentVoucher') {
+        //             debit = ledger.transactionable.total_amount || 0;
+        //         } else if (transactionableType === 'PurchaseReturnInvoices') {
+        //             debit = ledger.transactionable.net_amount || 0;
+        //         } else if (transactionableType === 'PurchaseInvoice') {
+        //             credit = ledger.transactionable.net_amount || 0;
+        //         }
+        //         totalDebit += debit;
+        //         totalCredit += credit;
+        //         balance += (credit - debit);
+        //     }
+            
+
+        //     this.totalDeb = totalDebit;
+        //     this.totalCred = totalCredit;
+        //     this.balance = balance;
+           
+        //     if (balance === 0) {
+        //         return '0';
+        //     } else if (balance < 0) {
+        //         return Math.abs(balance) + ' DR';
+        //     } else {
+        //         return this.balance =balance + ' CR';
+        //     }
+        // },
         calculateVendorBalance(ledgers, currentIndex) {
             let balance = 0;
             let totalDebit = 0;
             let totalCredit = 0;
 
-            // Calculate the balance by iterating through the ledger entries
             for (let i = 0; i <= currentIndex; i++) {
+                
                 const ledger = ledgers[i];
-                const transactionableType = ledger.transactionable_type.split('\\').pop();
-                let debit = 0;
-                let credit = 0;
+                // Check if ledger is defined and has the necessary properties
+                if (ledger) {
+                // console.log(ledger);
 
-                if (transactionableType === 'CashPaymentVoucher') {
-                    debit = ledger.transactionable.total_amount || 0;
-                } else if (transactionableType === 'PurchaseReturnInvoices') {
-                    debit = ledger.transactionable.net_amount || 0;
-                } else if (transactionableType === 'PurchaseInvoice') {
-                    credit = ledger.transactionable.net_amount || 0;
+                    const transactionableType = ledger.transactionable_type.split('\\').pop();
+                    let debit = 0;
+                    let credit = 0;
+
+                    if (transactionableType === 'CashPaymentVoucher') {
+                        debit = ledger.transactionable.total_amount || 0;
+                    } else if (transactionableType === 'PurchaseReturnInvoices') {
+                        debit = ledger.transactionable.net_amount || 0;
+                    } else if (transactionableType === 'PurchaseInvoice') {
+                        credit = ledger.transactionable.net_amount || 0;
+                    }
+                    totalDebit += debit;
+                    totalCredit += credit;
+                    balance += (credit - debit);
+                    // console.log(balance)
                 }
-                totalDebit += debit;
-                totalCredit += credit;
-                balance += (credit - debit);
             }
-            
 
             this.totalDeb = totalDebit;
             this.totalCred = totalCredit;
             this.balance = balance;
-            // Display "DR" for positive balance and "CR" for negative balance
+
             if (balance === 0) {
                 return '0';
             } else if (balance < 0) {
                 return Math.abs(balance) + ' DR';
             } else {
-                return this.balance =balance + ' CR';
+                return this.balance = balance + ' CR';
             }
         },
+
         calculateExpAndEmpBalance(ledgers, currentIndex){
             let balance = 0;
                 let totalDebit = 0;

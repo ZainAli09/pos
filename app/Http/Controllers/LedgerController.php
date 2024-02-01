@@ -11,6 +11,7 @@ use App\Models\Transactionable;
 use App\Models\Vendor;
 use App\Models\WSInvoice;
 use App\Models\WSReturnInvoices;
+use Exception;
 use Illuminate\Http\Request;
 
 class LedgerController extends Controller
@@ -28,49 +29,55 @@ class LedgerController extends Controller
     }
 
     public function searchLedger(Request $request){
-        // dd($request);
+        // dd($request->all());
         $type = explode('-', $request->account_no);
+        
         if($type[1] == 'v'){
-            
-            $ledger = Transactionable::where('transactionable_type', 'App\Models\CashPaymentVoucher')->with(['transactionable' => function ($query) use ($request, $type) {
-                $query->whereDate('voucher_date', '>=', $request->start_date)
-                    ->whereDate('voucher_date', '<=', $request->end_date);
-                $query->orderBy('voucher_date', 'ASC');
-                $query->with(['stakeholder' => function ($q) use ($request, $type) {
-                    $q->where('stakeholder_id', $type[0]);
-                }]);
-            }])->get();
-            
-            $ledger_other_part = Transactionable::where('transactionable_type', 'App\Models\PurchaseInvoice')
-                    ->orWhere('transactionable_type', 'App\Models\PurchaseReturnInvoices')
-          
-            ->with(['transactionable' => function ($query) use ($type, $request) {
-                $query->whereDate('created_at', '>=', $request->start_date)
-                    ->whereDate('created_at', '<=', $request->end_date);
-                $query->where('vendor_id', $type[0]);
-                // dd($type[0]);
-            }])->get();
-            
-            $ledger = $ledger->filter(function ($item) {
-                return $item->transactionable !== null && $item->transactionable->stakeholder !== null;
-            });
+            try{
+                $ledger = Transactionable::where('transactionable_type', 'App\Models\CashPaymentVoucher')->with(['transactionable' => function ($query) use ($request, $type) {
+                    $query->whereDate('voucher_date', '>=', $request->start_date)
+                        ->whereDate('voucher_date', '<=', $request->end_date);
+                    $query->orderBy('voucher_date', 'ASC');
+                    $query->with(['stakeholder' => function ($q) use ($request, $type) {
+                        $q->where('stakeholder_id', $type[0]);
+                    }]);
+                }])->get();
+                $ledger = $ledger->filter(function ($item) {
+                    return $item->transactionable !== null && $item->transactionable->stakeholder !== null;
+                });
+                // dd($ledger);
+                $ledger_other_part = Transactionable::where('transactionable_type', 'App\Models\PurchaseInvoice')
+                        ->orWhere('transactionable_type', 'App\Models\PurchaseReturnInvoices')
+              
+                ->with(['transactionable' => function ($query) use ($type, $request) {
+                    $query->whereDate('created_at', '>=', $request->start_date)
+                        ->whereDate('created_at', '<=', $request->end_date);
+                    $query->where('vendor_id', $type[0]);
+                    
+                }])->get();
+                
 
-            // $ledger_other_part = $ledger_other_part->filter(function ($item) {
-            //     return $item->transactionable !== null ;
-            // });
-            $mergedLedgers = $ledger->concat($ledger_other_part);
+                $ledger_other_part = $ledger_other_part->filter(function ($item) {
+                    return $item->transactionable !== null ;
+                });
+                $mergedLedgers = $ledger->concat($ledger_other_part);
+              
+                
+                $sortedLedgers = $mergedLedgers->sortBy('transactionable.voucher_date');
+                // dd($sortedLedgers);
+    
+                return inertia('PDF/Ledger',[
+                    'ledgers'=> $sortedLedgers,
+                    'ledger_for' => 'Vendor',
+                    'name'=>$type[2],
+                    'start_date'=>$request->start_date,
+                    'end_date'=>$request->end_date
+                ]);
+    
+            } catch(Exception $e){
+                dd($e);
+            }
             
-            $sortedLedgers = $mergedLedgers->sortBy('transactionable.voucher_date');
-            // dd($ledger_other_part);
-
-            return inertia('PDF/Ledger',[
-                'ledgers'=> $sortedLedgers,
-                'ledger_for' => 'Vendor',
-                'name'=>$type[2],
-                'start_date'=>$request->start_date,
-                'end_date'=>$request->end_date
-            ]);
-
         }elseif($type[1] == 'c'){
 
             $ledger = Transactionable::where(function ($query) {
@@ -95,9 +102,8 @@ class LedgerController extends Controller
             
             
             return inertia('PDF/Ledger',[
-               'ledgers'=> $ledger,
-               'ledger_for' => 'Cust',
-
+                'ledgers'=> $ledger,
+                'ledger_for' => 'Cust',
                 'name'=>$type[2],
                 'start_date'=>$request->start_date,
                 'end_date'=>$request->end_date

@@ -131,7 +131,7 @@
             <hr>
             <div class="flex space-x-4">
                 <div class="w-1/2">
-                    <p>Developed By Reylma Solutions +92-333-6005212</p>
+                    <p>Developed By Relyma Solutions +92-333-6005212</p>
                 </div>
                 
                 <div class="w-1/2">

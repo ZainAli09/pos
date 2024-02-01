@@ -190,6 +190,10 @@ class PermissionSeeder extends Seeder
                 'name' => 'delete.records',
                 'guard_name' => 'web',
             ],
+            [
+                'name' => 'profile',
+                'guard_name' => 'web',
+            ],
 
            
             

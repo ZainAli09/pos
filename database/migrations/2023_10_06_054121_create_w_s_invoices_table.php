@@ -19,10 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
 
-            $table->float('net_amount')->nullable();
-            $table->float('service_charges')->nullable();
-            $table->float('total_discount')->nullable();
-            $table->float('total_amount')->nullable();
+            $table->float('net_amount', 15, 2)->nullable();
+            $table->float('service_charges', 15, 2)->nullable();
+            $table->float('total_discount', 15, 2)->nullable();
+            $table->float('total_amount', 15, 2)->nullable();
             
 
             $table->timestamps();

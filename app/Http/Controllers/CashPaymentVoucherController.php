@@ -51,7 +51,7 @@ class CashPaymentVoucherController extends Controller
                 // dd($stakeholders);
         return inertia('Vouchers/CashPayment/Create',[
             'stakeholders' =>$stakeholders,
-            'paymentVouchers'=>CashPaymentVoucher::with('stakeholder.stakeholder')->get()
+            'paymentVouchers'=>CashPaymentVoucher::with('stakeholder.stakeholder')->orderBy('voucher_date', 'DESC')->get()
         ]);
         
     }

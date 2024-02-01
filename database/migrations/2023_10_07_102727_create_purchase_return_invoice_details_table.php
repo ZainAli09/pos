@@ -19,10 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('quantity');
-            $table->float('purchase_rate')->nullable();
-            $table->float('discount')->nullable();
-            $table->float('discount_percent')->nullable();
-            $table->float('total_rate')->nullable();
+            $table->float('purchase_rate', 15, 2)->nullable();
+            $table->float('discount', 15, 2)->nullable();
+            $table->float('discount_percent', 15, 2)->nullable();
+            $table->float('total_rate', 15, 2)->nullable();
             $table->timestamps();
         });
     }

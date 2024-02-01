@@ -105,7 +105,7 @@ export default {
   methods: {
 
     submitForm(){
-      this.$inertia.post(route('ledger.searchLedger'), this.formData,{
+      this.$inertia.get(route('ledger.searchLedger'), this.formData,{
         onSuccess: (resp) =>{
           // this.$inertia.visit(route('expenses.index'));
         }

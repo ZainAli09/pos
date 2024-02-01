@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->string('desc');
-            $table->float('total_amount');
+            $table->bigInteger('total_amount');
             $table->timestamps();
         });
     }

@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('sale_invoices', function (Blueprint $table) {
             $table->id();
             $table->float('net_amount')->nullable();
-            $table->float('service_charges')->nullable();
-            $table->float('total_discount')->nullable();
-            $table->float('total_amount')->nullable();
-            $table->float('received_amount')->nullable();
-            $table->float('remaining_balance')->nullable();
+            $table->float('service_charges', 15, 2)->nullable();
+            $table->float('total_discount', 15, 2)->nullable();
+            $table->float('total_amount', 15, 2)->nullable();
+            $table->float('received_amount', 15, 2)->nullable();
+            $table->float('remaining_balance', 15, 2)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

@@ -476,7 +476,7 @@ export default {
       if (productdetails) {
         this.formData.product_id = productdetails.id;
         this.formData.product_code = productdetails.id;
-        this.formData.sale_rate = productdetails.sale_rate;
+        this.formData.sale_rate = productdetails.whole_sale_rate;
         this.formData.purchase_rate = productdetails.purchase_rate;
         this.formData.batch_no = productdetails.batch_no;
         this.formData.expiry_date = productdetails.expiry_date;

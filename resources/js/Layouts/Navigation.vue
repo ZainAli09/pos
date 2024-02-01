@@ -19,7 +19,7 @@
           </NavLink>
         </li>
 
-        <li class="relative px-6 py-3">
+        <li v-if="$page.props.user.permissions.includes('main.addings.module')" class="relative px-6 py-3">
           <NavLink :href="route('products.index')" :active="route().current('products.index')">
             <template #icon>
               <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="20" fill="none" viewBox="0 0 21 20">

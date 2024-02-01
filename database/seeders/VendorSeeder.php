@@ -27,6 +27,8 @@ class VendorSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                
+
                 'name' => 'Vendor 2',
                 'contact_no' => '9876543210',
                 'reference_no' => 'REF456',

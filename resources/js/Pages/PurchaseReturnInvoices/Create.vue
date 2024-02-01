@@ -360,6 +360,7 @@ export default {
 
   methods: {
     submitForm() {
+    // console.log(this.formData)
         this.formData.addedItems = this.addedItems;
       this.$inertia.post(route('purchasereturninvoices.store'), this.formData, {
         onSuccess: () => {

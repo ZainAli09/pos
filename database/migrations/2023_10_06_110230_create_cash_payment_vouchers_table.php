@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('stakeholder_id');
             // $table->string('stakeholder_type')->nullable();
             $table->string('desc');
-            $table->float('total_amount');
+            $table->bigInteger('total_amount');
             $table->timestamps();
         });
     }

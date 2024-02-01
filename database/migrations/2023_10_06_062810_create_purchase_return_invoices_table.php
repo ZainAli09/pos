@@ -19,10 +19,10 @@ return new class extends Migration
             $table->foreign('vendor_id')->references('id')->on('vendors');
             
             $table->integer('total_quantity');
-            $table->float('gross_amount')->nullable();
-            $table->float('total_discount')->nullable();
-            $table->float('net_amount')->nullable();
-            $table->float('service_charges')->nullable();
+            $table->float('gross_amount', 15, 2)->nullable();
+            $table->float('total_discount', 15, 2)->nullable();
+            $table->float('net_amount', 15, 2)->nullable();
+            $table->float('service_charges', 15, 2)->nullable();
             $table->date('voucher_date')->default(now());
             $table->timestamps();
         });

@@ -10,9 +10,9 @@
 
         <div>
             <form @submit.prevent="submitForm" class="mt-6 space-y-6">
-                <div class="flex space-x-4">
+                <!-- <div class="flex space-x-4">
                  
-                  <div class="w-1/2"> <!-- Set the width to 8 columns -->
+                  <div class="w-1/2"> 
                       <InputLabel for="ac_name" value="A/C Name" />
                       
                       <select v-model="formData.account_no"  class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600">
@@ -20,7 +20,7 @@
                           
                       </select>
                   </div>
-              </div>
+              </div> -->
 
                 <div class="flex space-x-4">
 
@@ -99,7 +99,7 @@ export default {
   methods: {
 
     submitForm(){
-      this.$inertia.post(route('ledger.searchLedger'), this.formData,{
+      this.$inertia.get(route('reports.accountPayableGet'), this.formData,{
         onSuccess: (resp) =>{
           // this.$inertia.visit(route('expenses.index'));
         }
