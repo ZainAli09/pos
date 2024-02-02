@@ -357,7 +357,7 @@
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                     </svg>
                   </template>
-                  Purchase
+                  Purchase Register
                 </NavLink>
               </li>
               <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
@@ -367,10 +367,42 @@
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                     </svg>
                   </template>
-                  Sale
+                  Sale Register
+                </NavLink>
+              </li>
+              <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                <NavLink :href="route('reports.stock')" :active="route().current('reports.stock')">
+                  <template #icon>
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                  </template>
+                  Stock Register
+                </NavLink>
+              </li>
+              <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                <NavLink :href="route('reports.profit')" :active="route().current('reports.profit')">
+                  <template #icon>
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                  </template>
+                  Profit Register
                 </NavLink>
               </li>
             </ul>
+        </li>
+        <li v-if="$page.props.user.permissions.includes('ledger')" class="relative px-6 py-3">
+          <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+            <template #icon>
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                   stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+              </svg>
+            </template>
+            Cash Book
+          </NavLink>
         </li>
         <li v-if="$page.props.user.permissions.includes('ledger')" class="relative px-6 py-3">
           <NavLink :href="route('ledger.index')" :active="route().current('ledger.index')">

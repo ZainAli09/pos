@@ -370,6 +370,113 @@ class ReportController extends Controller
         ]);
     }
 
+    public function profit(){
+        
+        return Inertia::render('Reports/Profit/Index',[
+            'products'=> Product::where('status', 1)->get(),
+            'companies'=> Company::all(),
+            'vendors'=> Vendor::where('status', 1)->get(),
+            'categories'=> Category::all(),
+
+        ]);
+    }
+
+    public function profitGet(Request $request){
+        try{
+            $products = PurchaseInvoice::where(function($query) use ($request){
+                    if(!is_null($request->vendor_id)){
+                        $query->where('vendor_id', $request->vendor_id);
+                    }
+                    if(!is_null($request->start_date) && !is_null($request->end_date)){
+                        $query->whereDate('created_at', '>=', $request->start_date)
+                            ->whereDate('created_at', '<=', $request->end_date);
+                    }
+                })->with(['details.product'=> function($subquery) use ($request){
+                    
+                        if(!is_null($request->product_id)){
+                            $subquery->where('id', $request->product_id);
+                        }
+                        if(!is_null($request->company_id)){
+                            $subquery->where('company_id', $request->company_id);
+                        }
+                        if(!is_null($request->category_id)){
+                            $subquery->where('category_id', $request->category_id);
+                        }
+                    
+                }])->get();
+                $products = $products->filter(function ($item) {
+                    return $item->details->first(function ($detail) {
+                        return $detail->product !== null;
+                    }) !== null;
+                });
+            // dd($products);
+        }catch(Exception $e){
+            dd($e);
+        }
+      
+        // dd($products);
+       
+        return Inertia::render('PDF/Profit', [
+            'products'=>$products,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
+        ]);
+    }
+
+    public function stock(){
+        
+        return Inertia::render('Reports/Stock/Index',[
+            'products'=> Product::where('status', 1)->get(),
+            'companies'=> Company::all(),
+            'vendors'=> Vendor::where('status', 1)->get(),
+            'categories'=> Category::all(),
+
+        ]);
+    }
+
+    public function stockGet(Request $request){
+        try{
+            $products = PurchaseInvoice::where(function($query) use ($request){
+                    if(!is_null($request->vendor_id)){
+                        $query->where('vendor_id', $request->vendor_id);
+                    }
+                    if(!is_null($request->start_date) && !is_null($request->end_date)){
+                        $query->whereDate('created_at', '>=', $request->start_date)
+                            ->whereDate('created_at', '<=', $request->end_date);
+                    }
+                })->with(['details.product'=> function($subquery) use ($request){
+                    
+                        if(!is_null($request->product_id)){
+                            $subquery->where('id', $request->product_id);
+                        }
+                        if(!is_null($request->company_id)){
+                            $subquery->where('company_id', $request->company_id);
+                        }
+                        if(!is_null($request->category_id)){
+                            $subquery->where('category_id', $request->category_id);
+                        }
+                    
+                }])->get();
+                $products = $products->filter(function ($item) {
+                    return $item->details->first(function ($detail) {
+                        return $detail->product !== null;
+                    }) !== null;
+                });
+            // dd($products);
+        }catch(Exception $e){
+            dd($e);
+        }
+      
+        // dd($products);
+       
+        return Inertia::render('PDF/Stock', [
+            'products'=>$products,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
+        ]);
+    }
+
+
     public function purchase(){
         
         return Inertia::render('Reports/Purchase/Index',[

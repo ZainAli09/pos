@@ -58,12 +58,26 @@
                     <th class="px-6 py-3">Product Name</th>
                     <th class="px-1 py-3">QTY</th>
                     <th class="px-1 py-3">Sale Price</th>
-                    <!-- <th class="px-1 py-3">Disc Amount</th> -->
                     <th class="px-1 py-3">Total Amount</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y"  >
-                <tr v-for="sale in sales" >
+                <template v-for="sale in sales" :key="index">
+            
+                    <template v-for="detail in sale.sale_invoice_detail">
+                        <tr>
+                            <td class="px-1 py-2 text-sm">Cash</td>
+
+                            <td class="px-1 py-2 text-sm">{{ detail.product.id }}</td>
+                            <td class="px-4 py-2 text-sm">{{ detail.product.name }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.quantity }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.amount }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.amount }}</td>
+                        </tr>
+                    </template>
+                    
+                </template>
+                <!-- <tr v-for="sale in sales" >
                     <td class="px-1 py-2 text-sm">Cash</td>
                     <template v-for="detail in sale.sale_invoice_detail">
                        
@@ -71,10 +85,9 @@
                         <td class="px-4 py-2 text-sm">{{ detail.product.name }}</td>
                         <td class="px-1 py-2 text-sm">{{ detail.quantity }}</td>
                         <td class="px-1 py-2 text-sm">{{ detail.amount }}</td>
-                        <!-- <td class="px-1 py-2 text-sm"></td> -->
                         <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.amount }}</td>
                     </template>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <br />

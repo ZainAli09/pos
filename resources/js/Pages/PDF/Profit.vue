@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Purchase Report" />
+    <Head title="Profit Register Report" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +29,7 @@
 
         <div class="row">
             <div class="col heading">
-                <h2>Purchase Report</h2>
+                <h2>Profit Value Register Report</h2>
             </div>
         </div>
 
@@ -53,42 +53,35 @@
             <thead>
                 <tr
                     class="text-xs font-semibold tracking-wide text-left text-black-500 uppercase bg-gray-300 border-b">
-                    <th class="px-1 py-3">Purchase No</th>
+                    <!-- <th class="px-1 py-3">Sr No</th> -->
                     <th class="px-1 py-3">Product Code</th>
                     <th class="px-5 py-3">Product Name</th>
                     <th class="px-1 py-3">QTY</th>
                     <th class="px-1 py-3">Purchase Cost</th>
-                    <th class="px-1 py-3">Total Amount</th>
+                    <th class="px-1 py-3">Retail Cost</th>
+                    <th class="px-1 py-3">Profit</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y"  >
+                
                 <template v-for="purchaseInvoice in products" :key="index">
             
                     <template v-for="(detail, index) in purchaseInvoice.details">
                         <tr>
                             <td class="px-1 py-2 text-sm">{{ purchaseInvoice.id }}</td>
 
-                            <td class="px-1 py-2 text-sm">{{ detail.product.id }}</td>
+                            <!-- <td class="px-1 py-2 text-sm">{{ index+1 }}</td> -->
                             <td class="px-4 py-2 text-sm">{{ detail.product.name }}</td>
                             <td class="px-1 py-2 text-sm">{{ detail.quantity }}</td>
                             <td class="px-1 py-2 text-sm">{{ detail.purchase_rate }}</td>
-                            <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.purchase_rate }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.product.sale_rate }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.quantity * (detail.product.sale_rate-detail.purchase_rate) }}</td>
                         </tr>
                     </template>
                     
                 </template>
-                <!-- <tr v-for="(purchaseInvoice, index) in products" :key="index">
-            
-                    <td class="px-1 py-2 text-sm">{{ purchaseInvoice.id }}</td>
-                    <template v-for="detail in purchaseInvoice.details">
-                        <td class="px-1 py-2 text-sm">{{ detail.product.id }}</td>
-                        <td class="px-4 py-2 text-sm">{{ detail.product.name }}</td>
-                        <td class="px-1 py-2 text-sm">{{ detail.quantity }}</td>
-                        <td class="px-1 py-2 text-sm">{{ detail.purchase_rate }}</td>
-                        <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.purchase_rate }}</td>
-                    </template>
-                    
-                </tr> -->
+                
+             
             </tbody>
         </table>
         <br />

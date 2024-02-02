@@ -121,6 +121,11 @@ Route::middleware('auth')->group(function () {
     Route::get('reports/account-receivable', [ReportController::class, 'accountReceivable'])->name('reports.accountReceivable');
     Route::get('reports/recovery', [ReportController::class, 'recovery'])->name('reports.recovery');
     Route::get('reports/recovery/get', [ReportController::class, 'recoveryGet'])->name('reports.recoveryGet');
+    Route::get('reports/stock', [ReportController::class, 'stock'])->name('reports.stock');
+    Route::get('reports/stock/get', [ReportController::class, 'stockGet'])->name('reports.stockGet');
+
+    Route::get('reports/profit', [ReportController::class, 'profit'])->name('reports.profit');
+    Route::get('reports/profit/get', [ReportController::class, 'profitGet'])->name('reports.profitGet');
     Route::get('reports/purchase', [ReportController::class, 'purchase'])->name('reports.purchase');
     Route::get('reports/purchase/get', [ReportController::class, 'purchaseGet'])->name('reports.purchaseGet');
     Route::get('reports/sale', [ReportController::class, 'sale'])->name('reports.sale');

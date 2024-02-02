@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Purchase Report" />
+    <Head title="Stock Register Report" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +29,7 @@
 
         <div class="row">
             <div class="col heading">
-                <h2>Purchase Report</h2>
+                <h2>Stock Value Register Report</h2>
             </div>
         </div>
 
@@ -58,7 +58,9 @@
                     <th class="px-5 py-3">Product Name</th>
                     <th class="px-1 py-3">QTY</th>
                     <th class="px-1 py-3">Purchase Cost</th>
-                    <th class="px-1 py-3">Total Amount</th>
+                    <th class="px-1 py-3">Retail Cost</th>
+                    <th class="px-1 py-3">Total Retail Amount</th>
+                    <th class="px-1 py-3">Total Purchase Amount</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y"  >
@@ -66,12 +68,15 @@
             
                     <template v-for="(detail, index) in purchaseInvoice.details">
                         <tr>
-                            <td class="px-1 py-2 text-sm">{{ purchaseInvoice.id }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.product.id }}</td>
 
                             <td class="px-1 py-2 text-sm">{{ detail.product.id }}</td>
                             <td class="px-4 py-2 text-sm">{{ detail.product.name }}</td>
                             <td class="px-1 py-2 text-sm">{{ detail.quantity }}</td>
                             <td class="px-1 py-2 text-sm">{{ detail.purchase_rate }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.product.sale_rate }}</td>
+                            <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.product.sale_rate }}</td>
+
                             <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.purchase_rate }}</td>
                         </tr>
                     </template>
@@ -85,6 +90,9 @@
                         <td class="px-4 py-2 text-sm">{{ detail.product.name }}</td>
                         <td class="px-1 py-2 text-sm">{{ detail.quantity }}</td>
                         <td class="px-1 py-2 text-sm">{{ detail.purchase_rate }}</td>
+                        <td class="px-1 py-2 text-sm">{{ detail.product.sale_rate }}</td>
+                        <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.product.sale_rate }}</td>
+
                         <td class="px-1 py-2 text-sm">{{ detail.quantity * detail.purchase_rate }}</td>
                     </template>
                     
