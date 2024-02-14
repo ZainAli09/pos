@@ -99,6 +99,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     
+    route::get('edit/saleinvoice/{id}', [SaleInvoiceController::class, 'editSaleInvoice'])->name('editSaleInvoice');
 
     Route::resource('cashpaymentvouchers', CashPaymentVoucherController::class);
     Route::resource('cashreceivedvouchers', CashReceivedVoucherController::class);

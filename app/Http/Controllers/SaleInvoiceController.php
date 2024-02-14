@@ -37,12 +37,8 @@ class SaleInvoiceController extends Controller
         })->toArray();
         return inertia('SalesInvoices/Create',
         [
-            
             'products'=> $products,
             'sr' => ($saleInvoice = SaleInvoice::orderBy('id', 'DESC')->first()) ? $saleInvoice->id : 0
-            
-            
-
         ]);
     }
 
@@ -114,7 +110,24 @@ class SaleInvoiceController extends Controller
      */
     public function edit(SaleInvoice $saleInvoice)
     {
-        //
+        dd($saleInvoice);
+    }
+
+    public function editSaleInvoice($id){
+       $saleInvoice = SaleInvoice::where('id',$id)->with('saleInvoiceDetail.product')->first();
+
+       $products = Product::where('status', 1)->get()->map(function ($product) {
+        return ['id' => $product->id, 'text' => $product->name, 'expiry_date' => $product->expiry_date, 
+        'sale_rate'=> $product->sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days, 'remaining_stock'=>$product->remaining_stock];
+        })->toArray();
+
+        return inertia('SalesInvoices/Edit',
+        [
+            'products'=> $products,
+            'saleInvoice'=> $saleInvoice,
+            'sr' => ($saleInvoice = SaleInvoice::orderBy('id', 'DESC')->first()) ? $saleInvoice->id : 0
+        ]);
+       
     }
 
     /**
@@ -122,7 +135,7 @@ class SaleInvoiceController extends Controller
      */
     public function update(Request $request, SaleInvoice $saleInvoice)
     {
-        //
+        dd($request);
     }
 
     /**
