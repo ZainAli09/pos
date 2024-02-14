@@ -23,18 +23,15 @@ use PDF;
 class PDFController extends Controller
 {
     public function generate(Request $request){
-        // dd($request->invoiceid);
+        // dd($request);
         $saleInvoice = SaleInvoice::find($request->invoiceid);
         $saleInvoiceDetails = SaleInvoiceDetail::where('sale_invoice_id',$saleInvoice->id)->with('product')->get();
         
-
-    //    dd($saleInvoiceDetails);
         return inertia('PDF/SaleInvoice', ['saleInvoice'=> $saleInvoice,
             'saleInvoiceDetails' => $saleInvoiceDetails,
             'authUser' => Auth::user()->name,
 
             ]);
-        // return Inertia::render('PDF/PurchaseInvoice', ['data'=>$data]);
         
     }
 

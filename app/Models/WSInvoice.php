@@ -16,4 +16,8 @@ class WSInvoice extends Model
     public function transactionable(){
         return $this->morphMany(Transactionable::class, 'transactionable');
     }
+
+    public function wSaleInvoiceDetail(){
+        return $this->hasMany(WSInvoiceDetail::class);
+    }
 }

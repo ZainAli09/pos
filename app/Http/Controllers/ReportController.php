@@ -12,6 +12,7 @@ use App\Models\SaleInvoice;
 use App\Models\Transactionable;
 use App\Models\User;
 use App\Models\Vendor;
+use App\Models\WSInvoice;
 use App\Models\Zone;
 use Exception;
 use Illuminate\Http\Request;
@@ -127,12 +128,15 @@ class ReportController extends Controller
                 $latestVoucher = $vendorLedgers->where('transactionable_type', 'App\Models\CashPaymentVoucher')
                         ->sortByDesc('transactionable.voucher_date')
                         ->first();
+                        // dd($latestVoucher);
 
+                if(!is_null($latestVoucher)){
                 // Extract amount and other relevant information
                 $latestVoucherAmount = optional($latestVoucher->transactionable)->total_amount;
 
-                // dd($latestVoucherAmount);
                 $result['latestVoucherAmount'] = $latestVoucherAmount;
+                
+                }
                 $vendorName = $vendorLedgers->first()->transactionable_type === 'App\Models\CashPaymentVoucher'
                 ? $vendorLedgers->first()->transactionable->stakeholder->stakeholder->name
                 : $vendorLedgers->first()->transactionable->vendor->name;
@@ -140,6 +144,7 @@ class ReportController extends Controller
 
 
                 $vendorBalances[$vendorId] = $result;
+
                
             }
 
@@ -247,14 +252,17 @@ class ReportController extends Controller
                 ->sortByDesc('transactionable.sale_date')
                 ->first();
 
+            if(!is_null($latestVoucher)){
+                $latestVoucherAmount = optional($latestVoucher->transactionable)->total_amount;
+                $result['latestVoucherAmount'] = $latestVoucherAmount;
+                
+            }
             // Extract amount and other relevant information
-            $latestVoucherAmount = optional($latestVoucher->transactionable)->total_amount;
             $customerName = $customerLedgers->first()->transactionable->customer->name;
 
             $result = $this->calculateBalance($customerLedgers->toArray(), count($customerLedgers) - 1);
 
             // Include the latest voucher amount and customer name in the result
-            $result['latestVoucherAmount'] = $latestVoucherAmount;
             $result['name'] = $customerName;
 
             // Store the result with customer ID as the key
@@ -526,6 +534,53 @@ class ReportController extends Controller
             'products'=>$products,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date
+        ]);
+    }
+
+    public function wSale(){
+        return Inertia::render('Reports/WholeSale/Index',[
+            'users' => User::all(),
+            'companies'=> Company::all(),
+            'vendors' => Vendor::where('status', 1)->get(),
+            'products'=> Product::where('status', 1)->get(),
+            'categories'=> Category::all()
+        ]);
+    }
+
+    public function wSaleGet(Request $request){
+        // dd($request);
+        $sales = WSInvoice::where(function($query) use ($request){
+            if(!is_null($request->start_date) && !is_null($request->end_date)){
+                $query->whereDate('created_at', '>=', $request->start_date)
+                    ->whereDate('created_at', '<=', $request->end_date);
+            }
+            if(!is_null($request->user_id)){
+                $query->where('user_id', $request->user_id);
+            }
+        })
+        
+        ->with(['wSaleInvoiceDetail.product' => function($query) use ($request){
+            if(!is_null($request->product_id)){
+                $query->where('id', $request->product_id);
+            }
+            if(!is_null($request->company_id)){
+                $query->where('company_id', $request->company_id);
+            }
+            if(!is_null($request->category_id)){
+                $query->where('category_id', $request->category_id);
+            }
+        }])->get();
+    //    dd($sales);
+        $sales = $sales->filter(function ($item) {
+            return $item->wSaleInvoiceDetail->first(function ($detail) {
+                return $detail->product !== null;
+            }) !== null;
+        });
+        // dd($sales);
+        return Inertia::render('PDF/WholeSale',[
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'sales'=> $sales
         ]);
     }
 

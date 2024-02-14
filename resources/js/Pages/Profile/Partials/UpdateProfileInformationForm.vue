@@ -84,7 +84,7 @@ const form = useForm({
                 </div>
                 <div class="w-full sm:w-1/2 md:w-1/3 px-4">
                     <div>
-                        <InputLabel for="company_name" value="Company Name" />
+                        <InputLabel for="company_name" value="Company Name *" />
 
                         <TextInput
                             id="company_name"
@@ -156,7 +156,7 @@ const form = useForm({
 
                 <div class="w-full sm:w-1/2 md:w-1/3 px-4">
                     <div>
-                        <InputLabel for="mobile_no" value="Mobile Number" />
+                        <InputLabel for="mobile_no" value="Mobile Number *" />
 
                         <TextInput
                             id="mobile_no"
@@ -222,7 +222,7 @@ const form = useForm({
             </div>
             <div class="w-full ">
                     <div>
-                        <InputLabel for="address" value="Address" />
+                        <InputLabel for="address" value="Address *" />
 
                         <TextInput
                             id="address"

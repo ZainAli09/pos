@@ -32,7 +32,8 @@ class SaleInvoiceController extends Controller
     {
         $this->authorize('create', SaleInvoice::class);
         $products = Product::where('status', 1)->get()->map(function ($product) {
-            return ['id' => $product->id, 'text' => $product->name, 'expiry_date' => $product->expiry_date, 'sale_rate'=> $product->sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days];
+            return ['id' => $product->id, 'text' => $product->name, 'expiry_date' => $product->expiry_date, 
+            'sale_rate'=> $product->sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days, 'remaining_stock'=>$product->remaining_stock];
         })->toArray();
         return inertia('SalesInvoices/Create',
         [
@@ -52,7 +53,7 @@ class SaleInvoiceController extends Controller
     {
         $this->authorize('create', SaleInvoice::class);
         $this->authorize('sale.print', SaleInvoice::class);
-        // dd(Auth::user()->id);
+        
         DB::beginTransaction();
 
         try {
@@ -87,6 +88,10 @@ class SaleInvoiceController extends Controller
                 DB::commit(); 
             } else {
                 DB::rollBack(); 
+            }
+
+            if($request->submit_button == 'saveandprint'){
+                return Inertia::location(route('generatePDF', ['invoiceid'=>$saleInvoice->id]));
             }
         } catch (Exception $e) {
             dd($e);

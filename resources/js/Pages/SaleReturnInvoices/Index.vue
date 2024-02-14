@@ -57,7 +57,7 @@
                                     {{ salereturninvoice.id }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ changeDateFormat(saleinvoice.created_at) }}
+                                    {{ changeDateFormat(salereturninvoice.created_at) }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ salereturninvoice.net_amount }}

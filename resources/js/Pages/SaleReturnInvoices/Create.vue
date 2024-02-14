@@ -242,7 +242,9 @@
                             type="number" step="0.01"
                             class="mt-1 block w-full"
                             autocomplete="received_amount"
+                            :class="{ 'border-red-500': isAmountLess }"
                             @keyup="receivedAndBalance"
+                            required
                         />
                     </div>
                     <div class="w-1/6">
@@ -259,7 +261,10 @@
                 </div>
 
                 <br />
-                <PrimaryButton >Save</PrimaryButton>
+                <div class="w-1/6">
+                    <PrimaryButton @click="handleButtonClick('save')" >Save</PrimaryButton>
+                    <PrimaryButton class="ml-1" @click="handleButtonClick('saveandprint')" >Save & Print</PrimaryButton>
+                </div>
 
             </form>
         </div>
@@ -318,11 +323,15 @@ export default {
             net_amount:'',
             total_items: '',
             total: '',
+            submit_button:'',
+            received_amount:'',
+            total:'',
 
             addedItems: [],
 
         },
         addedItems: [],
+        isAmountLess: false 
         
 
     }
@@ -330,14 +339,22 @@ export default {
 
 
   methods: {
+    handleButtonClick(buttonType) {
+      this.formData.submit_button = buttonType;
+    },
     submitForm() {
-        this.formData.addedItems = this.addedItems;
-      this.$inertia.post(route('salereturninvoices.store'), this.formData, {
-        onSuccess: () => {
-          // Redirect to the index page using Inertia's visit method
-          this.$inertia.visit(route('salereturninvoices.index'));
+        if(this.formData.received_amount >= this.formData.total){
+            this.formData.addedItems = this.addedItems;
+            this.$inertia.post(route('salereturninvoices.store'), this.formData, {
+                onSuccess: () => {
+                // Redirect to the index page using Inertia's visit method
+                this.$inertia.visit(route('salereturninvoices.index'));
+                }
+            });
+        }else{
+            this.isAmountLess = true ;
         }
-      });
+        
     },
 
     
@@ -468,3 +485,9 @@ export default {
 
 }
 </script>
+<style>
+.select2-selection{
+    height: 40px !important;
+    margin-top: 5px;
+}
+</style>

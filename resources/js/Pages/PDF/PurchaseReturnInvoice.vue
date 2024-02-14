@@ -42,9 +42,9 @@
             </div>
             <div class="col-lg-4">
             </div>
-            <div class="col-lg-2">
+            <!-- <div class="col-lg-2">
                 <p>Invoice No:</p>
-            </div>
+            </div> -->
             <div class="col-lg-2">
                 <p>INV-{{ purchaseInvoice.id  }}</p>
             </div>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="col-lg-6">
-                <p>{{ purchaseInvoice.vendor.address }}</p>
+                <p>{{ truncatedAddress }}</p>
 
             </div>
             <div class="col-lg-2">
@@ -70,22 +70,22 @@
             <thead>
                 <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
-                    <th class="px-4 py-3">Sr</th>
-                    <th class="px-4 py-3">Product Name</th>
-                    <th class="px-4 py-3">Quantity</th>
-                    <th class="px-4 py-3">Price</th>
-                    <th class="px-4 py-3">Net Total</th>
+                    <th class="px-4 py-1">Sr</th>
+                    <th class="px-4 py-1">Product Name</th>
+                    <th class="px-4 py-1">Quantity</th>
+                    <th class="px-4 py-1">Price</th>
+                    <th class="px-4 py-1">Net Total</th>
                     
                     
                 </tr>
             </thead>
             <tbody class="bg-white divide-y">
                 <tr v-for="(purchaseInvoiceDet, index) in purchaseInvoiceDetails" :key="purchaseInvoiceDet.id">
-                    <td class="px-4 py-3 text-sm">{{ index + 1 }}</td>
-                    <td class="px-4 py-3 text-sm">{{ purchaseInvoiceDet.product.name }}</td>
-                    <td class="px-4 py-3 text-sm">{{ purchaseInvoiceDet.quantity }}</td>
-                    <td class="px-4 py-3 text-sm">{{ purchaseInvoiceDet.product.purchase_rate }}</td>
-                    <td class="px-4 py-3 text-sm">{{ purchaseInvoiceDet.total_rate }}</td>
+                    <td class="px-4 py-1 text-sm">{{ index + 1 }}</td>
+                    <td class="px-4 py-1 text-sm">{{ purchaseInvoiceDet.product.name }}</td>
+                    <td class="px-4 py-1 text-sm">{{ purchaseInvoiceDet.quantity }}</td>
+                    <td class="px-4 py-1 text-sm">{{ purchaseInvoiceDet.product.purchase_rate }}</td>
+                    <td class="px-4 py-1 text-sm">{{ purchaseInvoiceDet.total_rate }}</td>
                 </tr>
                 
             </tbody>
@@ -204,6 +204,18 @@
             this.created_at = new Date(this.purchaseInvoice.created_at).toLocaleDateString();
 
            
+        },
+        computed: {
+            truncatedAddress() {
+            // Check if the address is longer than 20 characters
+            if (this.purchaseInvoice.vendor.address.length > 50) {
+                // If so, return the first 20 characters followed by "..."
+                return this.purchaseInvoice.vendor.address.substring(0, 50) + '...';
+            } else {
+                // If not, return the full address
+                return this.purchaseInvoice.vendor.address;
+            }
+            }
         },
         methods: {
             

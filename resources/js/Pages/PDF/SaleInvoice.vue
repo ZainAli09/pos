@@ -13,17 +13,17 @@
         <div class="container" >
             <div class="flex space-x-4">
                 <div class="w-1/1 mx-auto">
-                    <h2>{{  user.company_name  }}</h2>
+                    <h4>{{  user.company_name  }}</h4>
                 </div>
             </div>
             <div class="flex space-x-4">
                 <div class="w-1/1 mx-auto">
-                    <h4>{{  user.address  }}</h4>
+                    <h5>{{  user.address  }}</h5>
                 </div>
             </div>
             <div class="flex space-x-4">
                 <div class="w-1/1 mx-auto">
-                    <h4>{{  user.mobile_no  }}</h4>
+                    <h5>{{  user.mobile_no  }}</h5>
                 </div>
             </div>
 
@@ -34,23 +34,38 @@
             </div>
 
             <div class="flex space-x-4">
-                <div class="w-1/6">
+                <!-- <div class="w-2/12"> 
                     <p>Bill #:</p>
                 </div>
-                <div class="w-1/6">
+                <div class="w-6/12"> 
                     <p>612 Bank Machine</p>
-                </div>
-                <!-- <div class="w-1/3">
                 </div> -->
-                <div class="w-1/6">
+                <!-- <div class="w-2/12"> 
                     <p>Invoice No:</p>
-                </div>
-                <div class="w-1/6">
-                    <p>INV-{{ saleInvoice.id  }}</p>
+                </div> -->
+                <div class="w-2/12"> <!-- 2/12 = 1/6 -->
+                    <p>INV-{{ saleInvoice.id }}</p>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="flex space-x-4">
+                <div class="w-2/12">
+                    <p>Bill Type:</p>
+                </div>
+
+                <div class="w-6/12">
+                    <p>Cash</p>
+
+                </div>
+                <div class="w-2/12">
+                    <p>Date:</p>
+                </div>
+                <div class="w-2/12">
+                    <p> {{ currentDate }}</p>
+                </div>
+            </div>
+
+            <!-- <div class="row">
                 <div class="col-lg-2">
                     <p>Bill Type:</p>
                 </div>
@@ -65,13 +80,13 @@
                 <div class="col-lg-2">
                     <p> {{ currentDate }}</p>
                 </div>
-            </div>
+            </div> -->
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
-                        <th class="px-4 fz py-3">Sr</th>
-                        <th class="px-4 fz py-3">Product Name</th>
+                        <th class="px-1 fz py-3">Sr</th>
+                        <th class="px-4 fz py-3">P-Name</th>
                         <th class="px-4 fz py-3">Quantity</th>
                         <th class="px-4 fz py-3">Price</th>
                         <th class="px-4 fz py-3">Net Total</th>
@@ -81,65 +96,64 @@
                 </thead>
                 <tbody class="bg-white divide-y">
                     <tr v-for="(saleInvoiceDet, index) in saleInvoiceDetails" :key="saleInvoiceDet.id">
-                        <td class="px-4 py-3 fz text-sm">{{ index + 1 }}</td>
+                        <td class="px-1 py-3 fz text-sm">{{ index + 1 }}</td>
                         <td class="px-4 py-3 fz text-sm">{{ saleInvoiceDet.product.name }}</td>
                         <td class="px-4 py-3 fz text-sm">{{ saleInvoiceDet.quantity }}</td>
-                        <td class="px-4 py-3 fz text-sm">{{ saleInvoiceDet.product.sale_rate }}</td>
-                        <td class="px-4 py-3 fz text-sm">{{ saleInvoiceDet.amount }}</td>
+                        <td class="px-4 py-3 fz text-sm">{{ saleInvoiceDet.product.sale_rate.toFixed(2) }}</td>
+                        <td class="px-4 py-3 fz text-sm">{{ Math.round(saleInvoiceDet.amount) }}</td>
                     </tr>
                     
                 </tbody>
             </table>
             <br />
-            <div class="flex space-x-4">
-
+            <div class="flex space-x-4 mt-0">
                 <div class="w-1/3">
                     <p>T Item:</p>
                 </div>
-                <div class="w-1/3">
+                <div class="w-2/12">
                     <p>{{ saleInvoiceDetails.length }}</p>
                 </div>
                 <div class="w-1/3">
                     <p>T Qty:</p>
                 </div>
-                <div class="w-1/3">
+                <div class="w-2/12">
                     <p>{{ quantity }}</p>
                 </div>
 
-                <div class="w-1/3">
-                    <p>Discount:</p>
+                <div class="w-2/12">
+                    <p>Disc:</p>
                 </div>
-                <div class="w-1/3">
+                <div class="w-2/12">
                     <p>{{saleInvoice.total_discount}}</p>
                 </div>
-                <div class="col-lg-2">
-                    <p>Net Payable:</p>
-                </div>
                 <div class="w-1/3">
+                    <p>T-Amount:</p>
+                </div>
+                <div class="w-2/12">
                     <p>{{net_payable}}</p>
                 </div>
             </div>
-            <br>
+            <!-- <br> -->
 
-            <hr>
+            <hr class="mt-0">
 
             <div class="flex space-x-4">
                 <div class="w-1/3">
                     <p>Thanks for ur Kind Visit</p>
                 </div>
             </div>
-            <hr>
+            <hr class="mt-0">
             <div class="flex space-x-4">
-                <div class="w-1/2">
-                    <p>Developed By Relyma Solutions +92-333-6005212</p>
+                <div class="w-2/3">
+                    <p>Relyma Solutions +92-333-6005212</p>
                 </div>
                 
-                <div class="w-1/2">
+                <div class="w-1/3">
                     <p>Gen By: {{authUser}}</p>
                 </div>
                 
             </div>
-            <hr />
+            <hr class="mt-0" />
         </div>
     </div>
     

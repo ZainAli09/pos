@@ -34,7 +34,7 @@
                         <InputLabel for="product" value="Product Name" />
                         <Select2Input :options="products" 
                         @change="getProductDetails($event)" v-model="formData.product_id" 
-                        style="width: -webkit-fill-available;"
+                        style="width: -webkit-fill-available;height: 40px !important; margin-top: 5px ;"
                         
                         />
                     </div>
@@ -241,7 +241,10 @@
                             type="number" step="0.01"
                             class="mt-1 block w-full"
                             autocomplete="received_amount"
+                            :class="{ 'border-red-500': isAmountLess }"
+
                             @keyup="receivedAndBalance"
+                            required
                         />
                     </div>
                     <div class="w-1/6">
@@ -258,9 +261,16 @@
                 </div>
 
                 <br />
-                <PrimaryButton >Save</PrimaryButton>
+                <div class="w-1/6">
+
+                    <PrimaryButton @click="handleButtonClick('save')" >Save</PrimaryButton>
+                   
+                    <PrimaryButton class="ml-1" @click="handleButtonClick('saveandprint')" >Save & Print</PrimaryButton>
+                </div>
+
 
             </form>
+
         </div>
     </AuthenticatedLayout>
 </template>
@@ -319,11 +329,16 @@ export default {
             total_items: '',
             total: '',
             remaining_stock:'',
+            submit_button:'',
+            received_amount:'',
+            total:'',
+            
 
             addedItems: [],
 
         },
         addedItems: [],
+        isAmountLess: false 
         
 
     }
@@ -331,19 +346,28 @@ export default {
 
 
   methods: {
+    handleButtonClick(buttonType) {
+      this.formData.submit_button = buttonType;
+    },
     submitForm() {
-        this.formData.addedItems = this.addedItems;
-      this.$inertia.post(route('saleinvoices.store'), this.formData, {
-        onSuccess: () => {
-          // Redirect to the index page using Inertia's visit method
-          this.$inertia.visit(route('saleinvoices.create'));
+        if(this.formData.received_amount >= this.formData.total){
+
+            this.formData.addedItems = this.addedItems;
+            this.$inertia.post(route('saleinvoices.store'), this.formData, {
+                onSuccess: () => {
+                // Redirect to the index page using Inertia's visit method
+                this.$inertia.visit(route('saleinvoices.create'));
+                }
+            });
+        }else{
+            this.isAmountLess = true ;
         }
-      });
     },
 
     
     getProductDetails(id){
         const productdetails = this.products.find((product) => product.id === parseInt(id));
+        
       if (productdetails) {
         this.formData.product_id = productdetails.id;
         this.formData.product_code = productdetails.id;
@@ -361,24 +385,6 @@ export default {
       }
        
     },
-
-    // calculateDiscountAmount(){
-        
-    //     const totalRate = this.formData.total_rate;
-    //     if(!isNaN(this.formData.discount_percent)){
-           
-    //         const discountPercent = this.formData.discount_percent;
-    //         const discountAmount = (totalRate * discountPercent) / 100;
-    //         this.formData.discount = discountAmount;
-    //         this.formData.total_rate = (totalRate - discountAmount).toFixed(2);
-    //     }else{
-    //         const percent = ((this.formData.discount/totalRate)*100).toFixed(2);
-    //         this.formData.discount_percent = percent;
-    //         this.formData.total_rate = (totalRate - this.formData.discount).toFixed(2);
-
-    //     }
-
-    // },
 
     
     calculateNetAmount(){
@@ -466,3 +472,9 @@ export default {
 
 }
 </script>
+<style>
+.select2-selection{
+    height: 40px !important;
+    margin-top: 5px;
+}
+</style>

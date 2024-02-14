@@ -571,3 +571,10 @@ export default {
 
 }
 </script>
+
+<style>
+.select2-selection{
+    height: 40px !important;
+    margin-top: 5px;
+}
+</style>

@@ -53,6 +53,7 @@ Route::get('/storage-link', function(){
 
 
 Route::get('/', function () {
+    // dd("here");
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -130,6 +131,9 @@ Route::middleware('auth')->group(function () {
     Route::get('reports/purchase/get', [ReportController::class, 'purchaseGet'])->name('reports.purchaseGet');
     Route::get('reports/sale', [ReportController::class, 'sale'])->name('reports.sale');
     Route::get('reports/sale/get', [ReportController::class, 'saleGet'])->name('reports.saleGet');
+
+    Route::get('reports/wsale', [ReportController::class, 'wSale'])->name('reports.wSale');
+    Route::get('reports/wsale/get', [ReportController::class, 'wSaleGet'])->name('reports.wSaleGet');
     Route::get('reports/account-payable/get', [ReportController::class, 'accountPayableGet'])->name('reports.accountPayableGet');
     Route::get('reports/account-receiveable/get', [ReportController::class, 'accountReceiveableGet'])->name('reports.accountReceiveableGet');
 

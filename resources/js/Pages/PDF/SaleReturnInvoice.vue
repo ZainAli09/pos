@@ -10,117 +10,133 @@
 
         <button class="btn btn-primary" @click="downloadPDF">Download PDF</button>
     <div id="pdf-content">
-        <div class="row">
-            <div class="col heading">
-                <h2>{{  user.company_name  }}</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col heading">
-                <h4>{{  user.address  }}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col heading">
-                <h4>{{  user.mobile_no  }}</h4>
-            </div>
-        </div>
+        <div class="container" >
 
-        <div class="row">
-            <div class="col heading">
-                <h2>Sale Return Invoice</h2>
+        <div class="flex space-x-4">
+                <div class="w-1/1 mx-auto">
+                    <h4>{{  user.company_name  }}</h4>
+                </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-2">
-                <p>Bill #:</p>
+            <div class="flex space-x-4">
+                <div class="w-1/1 mx-auto">
+                    <h5>{{  user.address  }}</h5>
+                </div>
             </div>
-            <div class="col-lg-2">
-                <p>612 Bank Machine</p>
-            </div>
-            <div class="col-lg-4">
-            </div>
-            <div class="col-lg-2">
-                <p>Invoice No:</p>
-            </div>
-            <div class="col-lg-2">
-                <p>INV-{{ saleInvoice.id  }}</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-2">
-                <p>Bill Type:</p>
+            <div class="flex space-x-4">
+                <div class="w-1/1 mx-auto">
+                    <h5>{{  user.mobile_no  }}</h5>
+                </div>
             </div>
 
-            <div class="col-lg-6">
-                <p>Cash</p>
+            <div class="flex space-x-4">
+                <div class="w-1/1 mx-auto">
+                    <h7>Sale Return Invoice</h7>
+                </div>
+            </div>
 
+            <div class="flex space-x-4">
+                <!-- <div class="w-2/12"> 
+                    <p>Bill #:</p>
+                </div>
+                <div class="w-6/12"> 
+                    <p>612 Bank Machine</p>
+                </div> -->
+                <!-- <div class="w-2/12"> 
+                    <p>Invoice No:</p>
+                </div> -->
+                <div class="w-2/12"> <!-- 2/12 = 1/6 -->
+                    <p>INV-{{ saleInvoice.id }}</p>
+                </div>
             </div>
-            <div class="col-lg-2">
-                <p>Date:</p>
+
+            <div class="flex space-x-4">
+                <div class="w-2/12">
+                    <p>Bill Type:</p>
+                </div>
+
+                <div class="w-6/12">
+                    <p>Cash</p>
+
+                </div>
+                <div class="w-2/12">
+                    <p>Date:</p>
+                </div>
+                <div class="w-2/12">
+                    <p> {{ currentDate }}</p>
+                </div>
             </div>
-            <div class="col-lg-2">
-                <p> {{ currentDate }}</p>
-            </div>
-        </div>
-        <table class="w-full whitespace-no-wrap">
-            <thead>
-                <tr
-                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
-                    <th class="px-4 py-3">Sr</th>
-                    <th class="px-4 py-3">Product Name</th>
-                    <th class="px-4 py-3">Quantity</th>
-                    <th class="px-4 py-3">Price</th>
-                    <th class="px-4 py-3">Net Total</th>
-                    
-                    
-                </tr>
-            </thead>
+
+            <!-- <div class="row">
+                <div class="col-lg-2">
+                    <p>Bill Type:</p>
+                </div>
+
+                <div class="col-lg-6">
+                    <p>Cash</p>
+
+                </div>
+                <div class="col-lg-2">
+                    <p>Date:</p>
+                </div>
+                <div class="col-lg-2">
+                    <p> {{ currentDate }}</p>
+                </div>
+            </div> -->
+            <table class="w-full whitespace-no-wrap">
+                <thead>
+                    <tr
+                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
+                        <th class="px-1 fz py-3">Sr</th>
+                        <th class="px-4 fz py-3">P-Name</th>
+                        <th class="px-4 fz py-3">Quantity</th>
+                        <th class="px-4 fz py-3">Price</th>
+                        <th class="px-4 fz py-3">Net Total</th>
+                        
+                        
+                    </tr>
+                </thead>
             <tbody class="bg-white divide-y">
                 <tr v-for="(saleInvoiceDet, index) in saleInvoiceDetails" :key="saleInvoiceDet.id">
-                    <td class="px-4 py-3 text-sm">{{ index + 1 }}</td>
-                    <td class="px-4 py-3 text-sm">{{ saleInvoiceDet.product.name }}</td>
-                    <td class="px-4 py-3 text-sm">{{ saleInvoiceDet.quantity }}</td>
-                    <td class="px-4 py-3 text-sm">{{ saleInvoiceDet.product.sale_rate }}</td>
-                    <td class="px-4 py-3 text-sm">{{ saleInvoiceDet.amount }}</td>
+                    <td class="px-1 fz py-3 text-sm">{{ index + 1 }}</td>
+                    <td class="px-4 fz py-3 text-sm">{{ saleInvoiceDet.product.name }}</td>
+                    <td class="px-4 fz py-3 text-sm">{{ saleInvoiceDet.quantity }}</td>
+                    <td class="px-4 fz py-3 text-sm">{{ saleInvoiceDet.product.sale_rate }}</td>
+                    <td class="px-4 fz py-3 text-sm">{{ saleInvoiceDet.amount }}</td>
                 </tr>
                 
             </tbody>
         </table>
         <br />
-        <div class="flex space-x-4">
+        <div class="flex space-x-4 mt-0">
+                <div class="w-1/3">
+                    <p>T Item:</p>
+                </div>
+                <div class="w-2/12">
+                    <p>{{ saleInvoiceDetails.length }}</p>
+                </div>
+                <div class="w-1/3">
+                    <p>T Qty:</p>
+                </div>
+                <div class="w-2/12">
+                    <p>{{ quantity }}</p>
+                </div>
 
-            <div class="w-1/3">
-                <p>T Item:</p>
+                <div class="w-2/12">
+                    <p>Disc:</p>
+                </div>
+                <div class="w-2/12">
+                    <p>{{saleInvoice.total_discount}}</p>
+                </div>
+                <div class="w-1/3">
+                    <p>T-Amount:</p>
+                </div>
+                <div class="w-2/12">
+                    <p>{{net_payable}}</p>
+                </div>
             </div>
-            <div class="w-1/3">
-                <p>{{ saleInvoiceDetails.length }}</p>
-            </div>
-            <div class="w-1/3">
-                <p>T Qty:</p>
-            </div>
-            <div class="w-1/3">
-                <p>{{ quantity }}</p>
-            </div>
+        <!-- <br><br> -->
 
-            <div class="w-1/3">
-                <p>Dist %</p>
-            </div>
-            <div class="w-1/3">
-                <p>{{saleInvoice.total_discount}}</p>
-            </div>
-            <div class="col-lg-2">
-                <p>Net Payable:</p>
-            </div>
-            <div class="w-1/3">
-                <p>{{net_payable}}</p>
-            </div>
-        </div>
-        <br><br>
-
-        <div class="flex space-x-4">
+        <!-- <div class="flex space-x-4">
             <div class="w-1/4">
                 <p>Recieved By:</p>
             </div>
@@ -134,38 +150,27 @@
             <div class="w-1/4">
                 <p>{{net_payable}}</p>
             </div>
-        </div>
+        </div> -->
 
-        <hr>
+        <hr class="mt-0">
 
         <div class="flex space-x-4">
             <div class="w-1/3">
                 <p>Thanks for ur Kind Visit</p>
             </div>
         </div>
-        <hr>
+        <hr class="mt-0">
         <div class="flex space-x-4">
+            <div class="w-2/3">
+                <p>Relyma Solutions +92-333-6005212</p>
+            </div>
+            
             <div class="w-1/3">
-                <p>Developed By Relyma Solutions +92-333-6005212</p>
+                <p>Gen By: {{authUser}}</p>
             </div>
-            <div class="w-1/6">
-                <strong>Print Date:</strong>
-            </div>
-            <div class="w-1/6">
-                <p>{{  currentDate  }}</p>
-            </div>
-            <div class="w-1/6">
-                <strong>Time:</strong>
-            </div>
-            <div class="w-1/6">
-                <p>{{  currentTime  }}</p>
-            </div>
-            <div class="w-1/6">
-                <strong>Generated By:</strong>
-            </div>
-            <div class="w-1/6">
-                <p>{{authUser}}</p>
-            </div>
+            
+        </div>
+        <hr class="mt-0" />
         </div>
     </div>
     
@@ -248,6 +253,16 @@
 
     .heading {
         text-align: center;
+    }
+    p {
+        font-size: 10px;
+    }
+    .fz{
+        font-size: 10px;
+
+    }
+    .container{
+        width: 28% !important;
     }
 
 </style>

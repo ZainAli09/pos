@@ -20,6 +20,7 @@ class SaleReturnInvoicesController extends Controller
     public function index()
     {
         $this->authorize('viewAny', SaleReturnInvoices::class);
+        // dd(SaleReturnInvoices::orderBy('id', 'DESC')->get());
         return inertia('SaleReturnInvoices/Index',[
             'salereturninvoices'=> SaleReturnInvoices::orderBy('id', 'DESC')->get()
         ]);
@@ -32,7 +33,8 @@ class SaleReturnInvoicesController extends Controller
     {
         $this->authorize('create', SaleReturnInvoices::class);
         $products = Product::where('status', 1)->get()->map(function ($product) {
-            return ['id' => $product->id, 'text' => $product->name, 'expiry_date' => $product->expiry_date, 'sale_rate'=> $product->sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days];
+            return ['id' => $product->id, 'text' => $product->name, 'expiry_date' => $product->expiry_date, 'sale_rate'=> $product->sale_rate, 
+            'expiry_alert_days'=>$product->expiry_alert_days, 'remaining_stock'=>$product->remaining_stock];
         })->toArray();
         return inertia('SaleReturnInvoices/Create',
         [
@@ -85,6 +87,10 @@ class SaleReturnInvoicesController extends Controller
                 DB::commit(); 
             } else {
                 DB::rollBack(); 
+            }
+
+            if($request->submit_button == 'saveandprint'){
+                return Inertia::location(route('generateReturnPDF', ['invoiceid'=>$saleReturnInvoice->id]));
             }
         } catch (Exception $e) {
             dd($e);

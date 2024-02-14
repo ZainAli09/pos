@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -137,4 +137,79 @@
             </div>
         </div>
     </body>
+</html> --}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Webpage Title</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        .banner {
+            width: 100%;
+            max-height: 300px; /* Adjust the height as needed */
+            overflow: hidden;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+        }
+
+        .contact-details, .project-info {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Your Company Name</h1>
+        <p>Welcome to our website</p>
+    </header>
+
+    <div class="banner">
+        <img src="your-banner-image.jpg" alt="Banner Image">
+    </div>
+
+    <div class="contact-details">
+        <h2>Contact Details</h2>
+        <p>Email: info@example.com</p>
+        <p>Phone: +123 456 7890</p>
+        <p>Address: 123 Main Street, City, Country</p>
+    </div>
+
+    <div class="project-info">
+        <h2>Projects</h2>
+        <p>We are dedicated to delivering high-quality projects that meet our clients' expectations.</p>
+        <p>Our portfolio includes a wide range of successful ventures in various industries.</p>
+        <!-- Add more project information as needed -->
+    </div>
+
+</body>
 </html>
