@@ -32,7 +32,7 @@ class WSReturnInvoicesController extends Controller
     {
         $this->authorize('create', WSReturnInvoices::class);
         $products = Product::where('status', 1)->get()->map(function ($product) {
-            return ['id' => $product->id, 'text' => $product->name,'expiry_date' => $product->expiry_date, 'whole_sale_rate'=> $product->whole_sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate];
+            return ['id' => $product->id, 'text' => $product->name,'expiry_date' => $product->expiry_date, 'whole_sale_rate'=> $product->whole_sale_rate, 'expiry_alert_days'=>$product->expiry_alert_days, 'batch_no' => $product->batch_no, 'purchase_rate'=> $product->purchase_rate, 'remaining_stock'=>$product->remaining_stock];
         })->toArray();
         $customers = Customer::where('status', 1)->get()->map(function ($customer) {
             return ['id' => $customer->id, 'text' => $customer->name,'address' => $customer->address];

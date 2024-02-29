@@ -12,6 +12,12 @@
             <form @submit.prevent="submitForm" class="mt-2 space-y-2">
                 <b style="font-size: 20px;"> INV-{{ sr + 1 }} </b>
                 <br />
+                
+                <div class="flex space-x-4">
+                    <div class="w-1/6">
+                        <h1 class="text-rose-500">Remaining <span >{{ formData.remaining_stock }}</span> </h1>
+                    </div>
+                </div>
                 <div class="flex space-x-4">
                     <div class="w-1/6">
                     <InputLabel for="sale_date" value="Sale Date" />
@@ -403,6 +409,8 @@ export default {
             net_amount:'',
             customer_id:'',
             sale_date:'',
+            remaining_stock:'',
+
             addedItems: [],
 
         },
@@ -481,6 +489,8 @@ export default {
         this.formData.batch_no = productdetails.batch_no;
         this.formData.expiry_date = productdetails.expiry_date;
         this.formData.expiry_alert_days = productdetails.expiry_alert_days;
+        this.formData.remaining_stock = productdetails.remaining_stock;
+
 
         
       } else {

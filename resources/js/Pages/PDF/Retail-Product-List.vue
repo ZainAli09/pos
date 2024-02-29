@@ -73,7 +73,7 @@
        
         
       
-        <div class="flex space-x-4 absolute bottom-0 w-full" id="ledger-footer">
+        <div class="flex space-x-4 absolute bottom-0 w-full" id="ledger-footer" style="position: relative;">
             <div class="w-1/2 ">
                 <p>Developed By Relyma Solutions +92-333-6005212</p>
             </div>

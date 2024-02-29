@@ -85,7 +85,7 @@
        
         
       
-        <div class="flex space-x-4 absolute bottom-0 w-full" id="ledger-footer">
+        <div class="flex space-x-4 absolute bottom-0 w-full" id="ledger-footer" style="position: relative;">
             <div class="w-1/2 ">
                 <p>Developed By Relyma Solutions +92-333-6005212</p>
             </div>
@@ -149,7 +149,7 @@
                     
                     const pdfOptions = {
                     margin: 5,
-                    filename: 'WS-product-list.pdf',
+                    filename: 'WS-list.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 },
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }

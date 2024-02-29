@@ -62,31 +62,7 @@
                             autocomplete="sale_rate"
                         />
                     </div>
-                    <!-- <div class="w-1/6">
-                        <InputLabel for="discount_percent" value="Discount %" />
-                        <TextInput
-                            id="discount_percent"
-                            ref="discount_percent"
-                            v-model="formData.discount_percent"
-                            type="number" step="0.01"
-                            class="mt-1 block w-full"
-                            autocomplete="discount_percent" readonly
-                            @change="calculateDiscountAmount"
-                        />
-                    </div>
-                    <div class="w-1/6">
-                        <InputLabel for="discount" value="Discount Amount" />
-                        <TextInput
-                            id="discount"
-                            ref="discount"
-                            v-model="formData.discount"
-                            type="number" step="0.01"
-                            class="mt-1 block w-full"
-                            autocomplete="discount" 
-                            @change="calculateDiscountAmount"
-
-                        />
-                    </div> -->
+                   
                     <div class="w-1/6">
                         <InputLabel for="total_rate" value="Amount" />
                         <TextInput
@@ -151,7 +127,9 @@
                                     <td class="px-4 py-3 text-sm">{{ item.quantity }}</td>
                                     <td class="px-4 py-3 text-sm">{{ item.total_rate }}</td>
                                     <!-- <td class="px-4 py-3 text-sm">{{ item.discount }}</td> -->
-                                    <td class="px-4 py-3 text-sm"><button type="button" @click="removeItem(index)">Remove</button></td>
+                                    <td class="px-4 py-3 text-sm"> 
+                                    <!-- <button type="button" @click="editItem(index)">Edit</button> &nbsp;|&nbsp; -->
+                                    <button type="button" @click="removeItem(index)">Remove</button></td>
 
                                 </tr>
                             </tbody>
@@ -404,6 +382,25 @@ export default {
         this.formData.total_rate = (quantity * this.formData.sale_rate).toFixed(2);
         // console.log(quantity * this.formData.purchase_rate);
 
+    },
+    editItem(index) {
+        const selectedItem = this.addedItems[index];
+        console.log(selectedItem);
+        this.formData.product_code = selectedItem.product_code;
+        this.formData.product_id = selectedItem.product_id;
+        this.formData.quantity = selectedItem.quantity;
+        this.formData.sale_rate = selectedItem.sale_rate;
+        this.formData.total_rate = selectedItem.total_rate;
+        this.formData.expiry_date = selectedItem.expiry_date;
+        this.formData.expiry_alert_days = selectedItem.expiry_alert_days;
+
+        // Optionally, you can remove the selected item from the list when editing
+        this.addedItems.splice(index, 1);
+
+        const selectInput = document.querySelector('.w-1/6 .select2-selection');
+        if (selectInput) {
+            selectInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
     },
 
     
